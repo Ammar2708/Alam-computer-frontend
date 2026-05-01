@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth-slice";
 import AdminProductslice from "./admin/product-slice";
-import ShopProductSlice from "./shop/product-slice";
+import ShopProductSlice from "./shop/product-slice/index";
 import shoppingCartSlice from "./shop/cart-slice";
 import popupReducer from "./popup/popupSlice"; 
 import sliderReducer from "./slider/sliderSlice";
