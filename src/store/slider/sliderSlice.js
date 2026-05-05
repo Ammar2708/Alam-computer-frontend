@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getApiUrl } from "@/config/api";
 
-const BASE_URL = "http://localhost:3000/api/slider";
+const BASE_URL = getApiUrl("/api/slider");
 
 // 🔹 Get all sliders (admin)
 export const fetchAllSliders = createAsyncThunk(

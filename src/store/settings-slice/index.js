@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import { getApiUrl } from "@/config/api";
 
 const defaultCheckoutSettings = {
   deliveryCharge: 0,
@@ -11,7 +10,7 @@ export const fetchCheckoutSettings = createAsyncThunk(
   "checkoutSettings/fetchCheckoutSettings",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/settings/checkout`);
+      const response = await axios.get(getApiUrl("/api/settings/checkout"));
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -29,7 +28,7 @@ export const updateCheckoutSettings = createAsyncThunk(
   async ({ deliveryCharge }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/api/admin/settings/checkout`,
+        getApiUrl("/api/admin/settings/checkout"),
         { deliveryCharge }
       );
 

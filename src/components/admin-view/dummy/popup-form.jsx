@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ImagePlus, UploadCloudIcon, XIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { getApiUrl } from "@/config/api";
 
 const initialFormData = {
   title: "",
@@ -83,7 +84,7 @@ function PopupForm({
         data.append("image", imageFile);
 
         const response = await axios.post(
-          "http://localhost:3000/api/admin/popup/upload-image",
+          getApiUrl("/api/admin/popup/upload-image"),
           data
         );
 

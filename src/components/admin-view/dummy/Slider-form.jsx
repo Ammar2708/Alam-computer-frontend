@@ -1,4 +1,5 @@
 import ProductImageUpload from "./Image-upload";
+import { getApiUrl } from "@/config/api";
 
 const initialFormData = {
   title: "",
@@ -109,7 +110,7 @@ function SliderForm({
             setImageLoadingState={setImageLoadingState}
             isEditMode={Boolean(editingId)}
             isCustomStyling
-            uploadUrl="http://localhost:3000/api/slider/admin/upload-image"
+            uploadUrl={getApiUrl("/api/slider/admin/upload-image")}
             label="Slider Media"
             createText="Upload Slider Image"
             replaceText="Replace Slider Image"

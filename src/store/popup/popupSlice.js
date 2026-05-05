@@ -1,12 +1,13 @@
 // src/redux/slices/popupSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getApiUrl } from "@/config/api";
 
 export const fetchLatestPopup = createAsyncThunk(
   "popup/fetchLatestPopup",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:3000/api/latest-popup");
+      const response = await axios.get(getApiUrl("/api/latest-popup"));
       return response.data;
     } catch (error) {
       return rejectWithValue(

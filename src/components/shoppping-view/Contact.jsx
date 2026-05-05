@@ -3,6 +3,7 @@ import axios from "axios";
 import { Phone, Mail, MapPin, Clock, Send, Loader2, Navigation } from "lucide-react";
 import { toast } from "sonner";
 import { externalLinkProps, storeContact } from "@/config/contact";
+import { getApiUrl } from "@/config/api";
 
 const initialFormData = {
   name: "",
@@ -65,7 +66,7 @@ const Contact = () => {
     try {
       setIsSubmitting(true);
 
-      const response = await axios.post("http://localhost:3000/api/contact", formData);
+      const response = await axios.post(getApiUrl("/api/contact"), formData);
 
       toast.success(response?.data?.message || "Message sent successfully");
       setFormData(initialFormData);

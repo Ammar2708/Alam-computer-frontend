@@ -17,6 +17,7 @@ import {
   fetchProductDetails,
   resetProductDetails,
 } from "@/store/shop/product-slice";
+import { getApiUrl } from "@/config/api";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ShoppingProductTile from "@/components/shoppping-view/ProductTile";
 import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
@@ -90,7 +91,7 @@ const Home = () => {
   useEffect(() => {
     const fetchSliders = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/slider");
+        const res = await fetch(getApiUrl("/api/slider"));
         const data = await res.json();
 
         if (data?.success) {
@@ -134,7 +135,7 @@ const Home = () => {
 
     const fetchPopup = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/latest-popup");
+        const res = await fetch(getApiUrl("/api/latest-popup"));
         const data = await res.json();
 
         if (!isMounted) return;

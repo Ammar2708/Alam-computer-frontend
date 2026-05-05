@@ -4,6 +4,7 @@ import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import axios from "axios";
 import { useRef } from "react";
+import { getApiUrl } from "@/config/api";
 
 function ProductImageUpload({
   imageFile,
@@ -16,7 +17,7 @@ function ProductImageUpload({
   setImageLoadingState,
   isEditMode,
   isCustomStyling = false,
-  uploadUrl = "http://localhost:3000/api/admin/products/upload-image",
+  uploadUrl = getApiUrl("/api/admin/products/upload-image"),
   label = "Product Media",
   createText = "Upload Product Image",
   replaceText = "Replace Product Image",

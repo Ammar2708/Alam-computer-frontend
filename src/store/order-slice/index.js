@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import { getApiUrl } from "@/config/api";
 
 const initialState = {
   orders: [],
@@ -15,7 +14,7 @@ export const createOrder = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/shop/orders/create`,
+        getApiUrl("/api/shop/orders/create"),
         formData
       );
 
@@ -35,7 +34,7 @@ export const fetchAdminOrders = createAsyncThunk(
   "orders/fetchAdminOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/admin/orders/get`);
+      const response = await axios.get(getApiUrl("/api/admin/orders/get"));
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -53,7 +52,7 @@ export const updateAdminOrderStatus = createAsyncThunk(
   async ({ orderId, orderStatus }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/api/admin/orders/status/${orderId}`,
+        getApiUrl(`/api/admin/orders/status/${orderId}`),
         { orderStatus }
       );
 

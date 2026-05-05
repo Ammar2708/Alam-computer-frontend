@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PopupForm from "../../components/admin-view/dummy/popup-form";
+import { getApiUrl } from "@/config/api";
 
 const initialFormData = {
   title: "",
@@ -40,7 +41,7 @@ function PopupPage() {
   const fetchAllPopups = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/api/admin/popup");
+      const response = await axios.get(getApiUrl("/api/admin/popup"));
       setPopupList(response.data || []);
     } catch (error) {
       console.log("Error fetching popups:", error);
@@ -51,7 +52,7 @@ function PopupPage() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/admin/products/all");
+      const response = await axios.get(getApiUrl("/api/admin/products/all"));
       setProducts(response.data?.data || []);
     } catch (error) {
       console.log("Error fetching products:", error);
@@ -97,11 +98,11 @@ function PopupPage() {
 
       if (editingId) {
         await axios.put(
-          `http://localhost:3000/api/admin/popup/${editingId}`,
+          getApiUrl(`/api/admin/popup/${editingId}`),
           formData
         );
       } else {
-        await axios.post("http://localhost:3000/api/admin/popup", formData);
+        await axios.post(getApiUrl("/api/admin/popup"), formData);
       }
 
       setFormData(initialFormData);
@@ -151,7 +152,7 @@ function PopupPage() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/admin/popup/${id}`);
+      await axios.delete(getApiUrl(`/api/admin/popup/${id}`));
       fetchAllPopups();
     } catch (error) {
       console.log("Error deleting popup:", error);
