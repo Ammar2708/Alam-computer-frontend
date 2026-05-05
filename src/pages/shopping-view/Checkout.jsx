@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createOrder } from "@/store/order-slice";
+import { fetchCheckoutSettings } from "@/store/settings-slice";
 import {
   deleteCartItem,
   fetchCartItems,
@@ -52,6 +53,7 @@ const ShoppingCheckout = () => {
   const { user } = useSelector((state) => state.auth);
   const { cartItems, isLoading } = useSelector((state) => state.cart);
   const { loading: orderLoading } = useSelector((state) => state.orders);
+  const { checkoutSettings } = useSelector((state) => state.checkoutSettings || {});
   const [orderDialogOpen, setOrderDialogOpen] = useState(false);
   const [orderFormData, setOrderFormData] = useState(initialOrderFormData);
 
@@ -70,12 +72,21 @@ const ShoppingCheckout = () => {
     (sum, item) => sum + getItemUnitPrice(item) * (item?.quantity || 0),
     0
   );
+  const deliveryCharge = Math.max(
+    0,
+    Number(checkoutSettings?.deliveryCharge) || 0
+  );
+  const totalAmount = subtotal + deliveryCharge;
 
   useEffect(() => {
     if (userId) {
       dispatch(fetchCartItems(userId));
     }
   }, [dispatch, userId]);
+
+  useEffect(() => {
+    dispatch(fetchCheckoutSettings());
+  }, [dispatch]);
 
   useEffect(() => {
     setOrderFormData((prev) => ({
@@ -371,7 +382,13 @@ const ShoppingCheckout = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Shipping</span>
-                    <span className="font-black text-emerald-300">Free</span>
+                    <span
+                      className={`font-black ${
+                        deliveryCharge > 0 ? "text-white" : "text-emerald-300"
+                      }`}
+                    >
+                      {deliveryCharge > 0 ? formatCurrency(deliveryCharge) : "Free"}
+                    </span>
                   </div>
                 </div>
 
@@ -380,7 +397,7 @@ const ShoppingCheckout = () => {
                     Total
                   </span>
                   <span className="text-2xl font-black text-red-400">
-                    {formatCurrency(subtotal)}
+                    {formatCurrency(totalAmount)}
                   </span>
                 </div>
 
@@ -403,7 +420,7 @@ const ShoppingCheckout = () => {
                       <div>
                         <p className="text-sm font-black uppercase">Fast Delivery</p>
                         <p className="text-xs text-gray-400">
-                          Shipping is currently free for this order.
+                          Delivery is prepared after order confirmation.
                         </p>
                       </div>
                     </div>
@@ -558,9 +575,21 @@ const ShoppingCheckout = () => {
                 <span className="font-black text-gray-950">Cash On Delivery</span>
               </div>
               <div className="mt-3 flex items-center justify-between gap-4 text-sm">
+                <span className="font-bold text-gray-600">Subtotal</span>
+                <span className="font-black text-gray-950">
+                  {formatCurrency(subtotal)}
+                </span>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-4 text-sm">
+                <span className="font-bold text-gray-600">Delivery</span>
+                <span className="font-black text-gray-950">
+                  {deliveryCharge > 0 ? formatCurrency(deliveryCharge) : "Free"}
+                </span>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-4 text-sm">
                 <span className="font-bold text-gray-600">Total</span>
                 <span className="text-xl font-black text-red-600">
-                  {formatCurrency(subtotal)}
+                  {formatCurrency(totalAmount)}
                 </span>
               </div>
             </div>

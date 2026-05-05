@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title">
+  <title id="title">EPSON</title>
+  <rect width="320" height="120" rx="18" fill="#ffffff"/>
+  <text
+    x="160"
+    y="72"
+    fill="#0046ad"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="44"
+    font-weight="800"
+    letter-spacing="6"
+    text-anchor="middle"
+  >
+    EPSON
+  </text>
+</svg>

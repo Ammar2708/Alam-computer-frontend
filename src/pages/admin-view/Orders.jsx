@@ -82,15 +82,27 @@ const formatPaymentMethod = (value = "") =>
 
 const getOrderItems = (order) => (Array.isArray(order?.items) ? order.items : []);
 
-const getOrderTotal = (order) => {
-  const savedTotal = Number(order?.totalAmount);
-  if (Number.isFinite(savedTotal)) return savedTotal;
+const getOrderSubtotal = (order) => {
+  const savedSubtotal = Number(order?.subtotalAmount);
+  if (Number.isFinite(savedSubtotal) && savedSubtotal > 0) return savedSubtotal;
 
   return getOrderItems(order).reduce(
     (sum, item) =>
       sum + (Number(item?.price) || 0) * (Number(item?.quantity) || 0),
     0
   );
+};
+
+const getDeliveryCharge = (order) => {
+  const deliveryCharge = Number(order?.deliveryCharge);
+  return Number.isFinite(deliveryCharge) && deliveryCharge > 0 ? deliveryCharge : 0;
+};
+
+const getOrderTotal = (order) => {
+  const savedTotal = Number(order?.totalAmount);
+  if (Number.isFinite(savedTotal)) return savedTotal;
+
+  return getOrderSubtotal(order) + getDeliveryCharge(order);
 };
 
 const getItemCount = (order) =>
@@ -317,9 +329,25 @@ function OrderCard({ order, onUpdateStatus, updatingStatus }) {
             <span className="text-sm font-medium text-slate-500">Lines</span>
             <span className="font-black text-slate-950">{items.length}</span>
           </div>
+          <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-3">
+            <span className="text-sm font-medium text-slate-500">Subtotal</span>
+            <span className="font-black text-slate-950">
+              {formatCurrency(getOrderSubtotal(order))}
+            </span>
+          </div>
           <div className="flex items-center justify-between gap-3">
-            <span className="text-sm font-medium text-slate-500">Status</span>
-            <span className="font-black capitalize text-slate-950">{status}</span>
+            <span className="text-sm font-medium text-slate-500">Delivery</span>
+            <span className="font-black text-slate-950">
+              {getDeliveryCharge(order) > 0
+                ? formatCurrency(getDeliveryCharge(order))
+                : "Free"}
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-sm font-medium text-slate-500">Total</span>
+            <span className="font-black text-red-600">
+              {formatCurrency(getOrderTotal(order))}
+            </span>
           </div>
 
           <div className="border-t border-slate-100 pt-3">

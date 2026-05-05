@@ -1,5 +1,3 @@
-import { Laptop, Printer } from "lucide-react";
-
 export const regiterFormConrol = [
     {
         name: "username",
@@ -42,6 +40,19 @@ export const loginFormConrol = [
         },
 ]
 
+export const productCategoryOptions = [
+  { id: "Laptop", label: "Laptop" },
+  { id: "Lcd", label: "Monitor / LCD" },
+  { id: "Printer", label: "Printer" },
+  { id: "Ink", label: "Ink" },
+  { id: "HDD", label: "HDD" },
+  { id: "SSD", label: "SSD" },
+  { id: "Network", label: "Network" },
+  { id: "All In One", label: "All In One" },
+  { id: "Towner", label: "Toners" },
+  { id: "accessories", label: "Accessories" },
+];
+
 export const addProductFormElement = [
     {
         name: "title",
@@ -63,14 +74,7 @@ export const addProductFormElement = [
         placeholder: "Enter product category",
         type: "text",        
         componentType: "select",
-        options: [
-            {id: "Laptop", label: "Laptop"},
-            {id: "Printer", label: "Printer"},
-            {id: "LCD", label: "LCD"},
-            {id: "accessories", label: "Accessories"},
-            {id: "All In One", label: "All In One"},
-
-        ]
+        options: productCategoryOptions
         },
         {
         name: "brand",
@@ -79,10 +83,24 @@ export const addProductFormElement = [
         options: [
             {id: "Dell", label: "Dell"},
             {id: "HP", label: "HP"},
+            {id: "EPSON", label: "EPSON"},
             {id: "Lenovo", label: "Lenovo"},
+            {id: "Amercian", label: "Amercian"},
             {id: "Acer", label: "Acer"},
             {id: "Apple", label: "Apple"},
             {id: "Cannon", label: "Cannon"},
+            {id: "Tp-link", label: "Tp-link"},
+            {id: "Toshiba", label: "Toshiba"},
+            {id: "Seagate", label: "Seagate"},
+            {id: "Intel", label: "Intel"},
+            {id: "Samsung", label: "Samsung"},
+            {id: "HGST", label: "HGST"},
+            {id: "WD Black", label: "WD Black"},
+            {id: "WD Blue", label: "WD Blue"},
+            {id: "WD Purple", label: "WD Purple"},
+            {id: "D-link", label: "D-link"},
+            {id: "Edimax", label: "Edimax"},
+            {id: "Others", label: "Others"},
         ]
         },
         {label: "Total Stock",
@@ -102,19 +120,30 @@ export const addProductFormElement = [
 
     export const filterOptions = {
   category: [
-    { id: "Laptop", label: "Laptop" },
-    { id: "Printer", label: "Printer" },
-    { id: "Lcd", label: "LCD" },
-    { id: "accessories", label: "Accessories" },
-    { id: "All In One", label: "All In One" },
+    ...productCategoryOptions.filter((option) => option.id !== "SSD"),
   ],
   brand: [
     { id: "HP", label: "HP" },
+    { id: "EPSON", label: "EPSON" },
     { id: "Dell", label: "Dell" },
+    { id: "Lenovo", label: "Lenovo" },
+    { id: "Amercian", label: "Amercian" },
     { id: "Apple", label: "Apple" },
     { id: "lenovo", label: "Lenovo" },
     { id: "Acer", label: "Acer" },
     { id: "Cannon", label: "Cannon" },
+    { id: "Tp-link", label: "Tp-link" },
+    { id: "Toshiba", label: "Toshiba" },
+    { id: "Seagate", label: "Seagate" },
+    { id: "Intel", label: "Intel" },
+    { id: "Samsung", label: "Samsung" },
+    { id: "HGST", label: "HGST" },
+    { id: "WD Black", label: "WD Black" },
+    { id: "WD Blue", label: "WD Blue" },
+    { id: "WD Purple", label: "WD Purple" },
+    { id: "D-link", label: "D-link" },
+    { id: "Edimax", label: "Edimax" },
+    { id: "Others", label: "Others" },
   ],
 };
 
@@ -164,18 +193,45 @@ export const sortOptions = [
     export const categoryOptionsMap = {
   Laptop: "Laptop",
   Printer: "Printer",
-  LCD: "LCD",
+  Ink: "Ink",
+  HDD: "HDD",
+  SSD: "SSD",
+  Network: "Network",
+  LCD: "Monitor / LCD",
+  Lcd: "Monitor / LCD",
   accessories: "Accessories",
+  "All In One": "All In One",
   AllInOne: "All In One",
+  Towner: "Toners",
+  Toner: "Toners",
+  Toners: "Toners",
 };
 
 export const brandOptionsMap = {
+  HP: "HP",
   Hp: "HP",
+  EPSON: "EPSON",
+  Epson: "EPSON",
+  epson: "EPSON",
   Dell: "Dell",
+  Lenovo: "Lenovo",
+  Amercian: "Amercian",
   Apple: "Apple",
   lenovo: "Lenovo",
   Acer: "Acer",
   Cannon: "Cannon",
+  "Tp-link": "Tp-link",
+  Toshiba: "Toshiba",
+  Seagate: "Seagate",
+  Intel: "Intel",
+  Samsung: "Samsung",
+  HGST: "HGST",
+  "WD Black": "WD Black",
+  "WD Blue": "WD Blue",
+  "WD Purple": "WD Purple",
+  "D-link": "D-link",
+  Edimax: "Edimax",
+  Others: "Others",
 };
             
 

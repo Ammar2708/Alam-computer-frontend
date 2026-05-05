@@ -19,6 +19,9 @@ function ShoppingProductTile({
       ? [product.image]
       : [];
   const primaryImage = productImages[0];
+  const categoryLabel =
+    categoryOptionsMap[product?.category] || product?.category || "Product";
+  const brandLabel = brandOptionsMap[product?.brand] || product?.brand || "";
   const stockLabel =
     product?.totalStock === 0
       ? { text: "Out of Stock", className: "bg-slate-700 text-white" }
@@ -80,11 +83,11 @@ function ShoppingProductTile({
 
         <CardContent className="flex flex-1 flex-col px-4 pb-3 pt-3">
           <div className="mb-2 flex items-center justify-between gap-2">
-            <span className="rounded-full bg-red-50 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-red-600">
-              {categoryOptionsMap[product?.category]}
+            <span className="whitespace-nowrap rounded-full bg-red-50 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-red-600">
+              {categoryLabel}
             </span>
             <span className="line-clamp-1 text-[9px] font-bold uppercase tracking-[0.12em] text-slate-400">
-              {brandOptionsMap[product?.brand]}
+              {brandLabel}
             </span>
           </div>
 

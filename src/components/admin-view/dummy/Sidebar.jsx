@@ -5,6 +5,7 @@ import {
   ShoppingBasket,
   Sparkles,
   Images,
+  Settings,
 } from "lucide-react";
 import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -33,6 +34,13 @@ const adminSidebarMenuItems = [
     description: "Sales and fulfillment",
   },
   {
+    id: "settings",
+    label: "Settings",
+    path: "/admin/settings",
+    icon: Settings,
+    description: "Checkout and delivery",
+  },
+  {
     id: "popup",
     label: "Popup",
     path: "/admin/popup",
@@ -53,7 +61,7 @@ function MenuItems({ setOpen }) {
   const location = useLocation();
 
   return (
-    <nav className="mt-6 flex flex-col gap-2">
+    <nav className="mt-4 flex flex-col gap-1.5">
       {adminSidebarMenuItems.map((menuItem) => {
         const Icon = menuItem.icon;
         const isActive = location.pathname === menuItem.path;
@@ -65,14 +73,14 @@ function MenuItems({ setOpen }) {
               navigate(menuItem.path);
               setOpen?.(false);
             }}
-            className={`group relative flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-all duration-200 ${
+            className={`group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-200 ${
               isActive
                 ? "bg-red-600 text-white shadow-sm"
                 : "text-gray-700 hover:bg-gray-100"
             }`}
           >
             <div
-              className={`flex h-9 w-9 items-center justify-center rounded-lg transition ${
+              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition ${
                 isActive
                   ? "bg-white/20"
                   : "bg-gray-100 text-gray-600 group-hover:bg-red-100 group-hover:text-red-600"
@@ -84,7 +92,7 @@ function MenuItems({ setOpen }) {
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-semibold">{menuItem.label}</span>
               <span
-                className={`text-xs ${
+                className={`text-[11px] ${
                   isActive ? "text-red-100" : "text-gray-400"
                 }`}
               >
@@ -93,7 +101,7 @@ function MenuItems({ setOpen }) {
             </div>
 
             {isActive && (
-              <div className="absolute right-3 h-2 w-2 rounded-full bg-white" />
+              <div className="absolute right-3 h-1.5 w-1.5 rounded-full bg-white" />
             )}
           </button>
         );
@@ -106,26 +114,26 @@ function SidebarContent({ setOpen }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-full flex-col bg-white px-4 py-6">
+    <div className="scrollbar-none flex h-full flex-col overflow-y-auto bg-white px-4 py-5">
       <div
         onClick={() => navigate("/admin/dashboard")}
-        className="cursor-pointer rounded-2xl bg-red-600 p-4 text-white shadow-sm"
+        className="cursor-pointer rounded-2xl bg-red-600 p-3.5 text-white shadow-sm"
       >
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/20">
-            <ChartNoAxesCombined className="h-6 w-6" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/20">
+            <ChartNoAxesCombined className="h-5 w-5" />
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-red-100">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-red-100">
               Alam Computer
             </p>
-            <h1 className="text-lg font-semibold">Admin Panel</h1>
+            <h1 className="text-base font-semibold">Admin Panel</h1>
           </div>
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-6">
         <div className="flex items-center justify-between px-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
             Navigation
@@ -137,7 +145,7 @@ function SidebarContent({ setOpen }) {
       </div>
 
       <div className="mt-auto pt-6">
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+        <div className="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
           <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
             Workspace
           </p>
@@ -149,7 +157,7 @@ function SidebarContent({ setOpen }) {
             </span>
           </div>
 
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-2 text-[11px] leading-5 text-gray-500">
             Manage products, orders, popup, slider, and monitor store performance.
           </p>
         </div>

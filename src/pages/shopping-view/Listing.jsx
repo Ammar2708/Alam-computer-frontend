@@ -43,6 +43,7 @@ const categoryLabelMap = {
   Lcd: "Monitors",
   LCD: "Monitors",
   Printer: "Printers",
+  Ink: "Ink",
   HDD: "HDD",
   SSD: "SSD",
   Network: "Network",

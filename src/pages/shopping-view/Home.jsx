@@ -5,6 +5,9 @@ import { toast } from "sonner";
 import {
   ChevronLeft,
   ChevronRight,
+  Laptop,
+  Monitor,
+  Printer,
   ShieldCheck,
   Truck,
   Zap,
@@ -22,6 +25,7 @@ import LoginRequiredDialog from "@/components/shoppping-view/LoginRequiredDialog
 
 const brands = [
   "/img4.png",
+  "/epson-logo.svg",
   "/img7.png",
   "/img9.png",
   "/img6.png",
@@ -30,6 +34,30 @@ const brands = [
   "/img10.png",
   "/img5.png",
 ];
+
+const featuredCategoryCards = [
+  {
+    title: "Laptop",
+    category: "Laptop",
+    description: "Business, student, and everyday laptops ready to shop.",
+    Icon: Laptop,
+  },
+  {
+    title: "Printer",
+    category: "Printer",
+    description: "Office and home printers from trusted brands.",
+    Icon: Printer,
+  },
+  {
+    title: "All In One",
+    category: "All In One",
+    description: "Complete all-in-one systems for compact workspaces.",
+    Icon: Monitor,
+  },
+];
+
+const HERO_SLIDE_DELAY = 6500;
+const HERO_SLIDE_TRANSITION_MS = 1100;
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -91,14 +119,14 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!heroSlides.length) return;
+    if (heroSlides.length <= 1) return;
 
-    const interval = window.setInterval(() => {
+    const slideTimer = window.setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
+    }, HERO_SLIDE_DELAY);
 
-    return () => window.clearInterval(interval);
-  }, [heroSlides]);
+    return () => window.clearTimeout(slideTimer);
+  }, [currentSlide, heroSlides.length]);
 
   useEffect(() => {
     let popupTimer;
@@ -292,6 +320,10 @@ const Home = () => {
     setCurrentSlide(index);
   };
 
+  const handleFeaturedCategoryClick = (category) => {
+    navigate(`/shop/listing?category=${encodeURIComponent(category)}`);
+  };
+
   const showPrevSlide = () => {
     if (!heroSlides.length) return;
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
@@ -309,8 +341,13 @@ const Home = () => {
           {heroSlides.length > 0 ? (
             <>
               <div
-                className="flex transition-transform duration-700 ease-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                className="flex transition-transform"
+                style={{
+                  transform: `translate3d(-${currentSlide * 100}%, 0, 0)`,
+                  transitionDuration: `${HERO_SLIDE_TRANSITION_MS}ms`,
+                  transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+                  willChange: "transform",
+                }}
               >
                 {heroSlides.map((slide, index) => (
                   <div
@@ -496,6 +533,60 @@ const Home = () => {
               className="h-8 object-contain md:h-14"
             />
           ))}
+        </div>
+      </section>
+
+      <section className="mt-10 px-4 md:px-16">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="rounded bg-gray-200 px-4 py-2 text-lg font-bold text-gray-700 md:text-2xl">
+            FEATURED CATEGORIES
+          </h2>
+
+          <button
+            onClick={() => navigate("/shop/listing")}
+            className="hidden rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 md:block"
+          >
+            View All
+          </button>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+          {featuredCategoryCards.map(({ title, category, description, Icon }) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => handleFeaturedCategoryClick(category)}
+              className="group flex min-h-[180px] flex-col justify-between rounded-[22px] border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 transition group-hover:bg-red-600 group-hover:text-white">
+                  <Icon className="h-7 w-7" />
+                </div>
+
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-slate-500 transition group-hover:bg-red-50 group-hover:text-red-600">
+                  Shop
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-black uppercase tracking-tight text-slate-950">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-500">
+                  {description}
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-6 text-center md:hidden">
+          <button
+            onClick={() => navigate("/shop/listing")}
+            className="rounded bg-red-600 px-6 py-2 text-sm text-white hover:bg-red-700"
+          >
+            View All Products
+          </button>
         </div>
       </section>
 

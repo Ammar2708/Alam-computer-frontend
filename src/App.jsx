@@ -94,6 +94,7 @@ import AdminFeatures from "./pages/admin-view/Features";
 import AdminOrders from "./pages/admin-view/Orders";
 import AdminPopup from "./pages/admin-view/popup";
 import AdminSlider from "./pages/admin-view/Slider";
+import AdminSettings from "./pages/admin-view/Settings";
 
 import ShoppingLayout from "./components/shoppping-view/Layout";
 import ShoppingHome from "./pages/shopping-view/Home";
@@ -173,6 +174,7 @@ function App() {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="popup" element={<AdminPopup />} />
           <Route path="slider" element={<AdminSlider />} />
+          <Route path="settings" element={<AdminSettings />} />
         </Route>
         <Route
           path="/shop"
@@ -213,6 +215,7 @@ function App() {
           <Route path="Laptop" element={<Navigate to="/shop/listing?category=Laptop" replace />} />
           <Route path="Monitor" element={<Navigate to="/shop/listing?category=Lcd" replace />} />
           <Route path="Printer" element={<Navigate to="/shop/listing?category=Printer" replace />} />
+          <Route path="Ink" element={<Navigate to="/shop/listing?category=Ink" replace />} />
           <Route path="HDD" element={<Navigate to="/shop/listing?category=HDD" replace />} />
           <Route path="SSD" element={<Navigate to="/shop/listing?category=SSD" replace />} />
           <Route path="Network" element={<Navigate to="/shop/listing?category=Network" replace />} />
