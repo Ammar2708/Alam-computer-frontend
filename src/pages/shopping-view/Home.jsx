@@ -83,7 +83,6 @@ const Home = () => {
   const { cartItems = { items: [] } } = useSelector(
     (state) => state.cart || {}
   );
-  const userId = getCartOwnerId(user);
   const featuredProducts = useMemo(
     () =>
       FEATURED_PRODUCT_CATEGORIES.map((category) =>
@@ -321,8 +320,8 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <section className="mt-4 px-4 md:px-16">
-        <div className="relative overflow-hidden rounded-[22px] bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)] shadow-[0_20px_55px_rgba(17,24,39,0.18)] md:rounded-[28px]">
+      <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
+        <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
           {heroSlides.length > 0 ? (
             <>
               <div
@@ -337,7 +336,7 @@ const Home = () => {
                 {heroSlides.map((slide, index) => (
                   <div
                     key={slide._id || index}
-                    className="grid min-w-full gap-6 px-5 py-6 md:min-h-[360px] md:grid-cols-[1.05fr_0.95fr] md:px-8 md:py-7"
+                    className="grid min-w-full gap-5 px-5 pb-20 pt-6 md:min-h-[360px] md:grid-cols-[1.05fr_0.95fr] md:gap-6 md:px-8 md:py-7"
                   >
                     <div className="flex flex-col justify-between text-white">
                       <div>
@@ -350,11 +349,11 @@ const Home = () => {
                           </span>
                         </div>
 
-                        <h1 className="mt-4 max-w-2xl text-xl font-black uppercase leading-[1.05] tracking-tight min-[380px]:text-2xl md:text-4xl">
+                        <h1 className="mt-4 max-w-2xl text-[1.65rem] font-black uppercase leading-[1.02] tracking-[-0.03em] md:text-4xl">
                           {slide.title}
                         </h1>
 
-                        <p className="mt-3 max-w-xl text-xs font-medium leading-5 text-white/80 md:text-sm">
+                        <p className="mt-3 max-w-xl text-sm font-medium leading-5 text-white/75 md:text-sm">
                           {slide.description}
                         </p>
 
@@ -387,55 +386,55 @@ const Home = () => {
                         </div>
                       </div>
 
-                      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                        <div className="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur">
+                      <div className="mt-5 grid grid-cols-3 gap-2 md:gap-3">
+                        <div className="rounded-2xl border border-white/10 bg-white/8 p-3 backdrop-blur md:p-4">
                           <div className="flex items-center gap-2 text-red-300">
                             <ShieldCheck className="h-4 w-4" />
                             <span className="text-[11px] font-black uppercase tracking-[0.18em]">
                               Genuine
                             </span>
                           </div>
-                          <p className="mt-2 text-xs font-bold text-white/90">
+                          <p className="mt-2 hidden text-xs font-bold text-white/90 md:block">
                             Trusted products with solid support.
                           </p>
                         </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur">
+                        <div className="rounded-2xl border border-white/10 bg-white/8 p-3 backdrop-blur md:p-4">
                           <div className="flex items-center gap-2 text-red-300">
                             <Truck className="h-4 w-4" />
                             <span className="text-[11px] font-black uppercase tracking-[0.18em]">
                               Fast
                             </span>
                           </div>
-                          <p className="mt-2 text-xs font-bold text-white/90">
+                          <p className="mt-2 hidden text-xs font-bold text-white/90 md:block">
                             Quick processing and delivery support.
                           </p>
                         </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur">
+                        <div className="rounded-2xl border border-white/10 bg-white/8 p-3 backdrop-blur md:p-4">
                           <div className="flex items-center gap-2 text-red-300">
                             <Zap className="h-4 w-4" />
                             <span className="text-[11px] font-black uppercase tracking-[0.18em]">
                               Ready
                             </span>
                           </div>
-                          <p className="mt-2 text-xs font-bold text-white/90">
+                          <p className="mt-2 hidden text-xs font-bold text-white/90 md:block">
                             Fast route from browsing to checkout.
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="relative flex items-center justify-center">
+                    <div className="relative flex items-center justify-center px-1 md:px-0">
                       <div className="absolute right-2 top-2 hidden h-24 w-24 rounded-full bg-red-500/20 blur-3xl md:block" />
                       <div className="absolute bottom-4 left-0 hidden h-20 w-20 rounded-full bg-black/10 blur-2xl md:block" />
 
                       <div className="relative w-full max-w-[430px]">
-                        <div className="absolute -right-2 top-4 z-10 rounded-[20px] border border-red-200 bg-white px-4 py-3 shadow-xl md:-right-4">
+                        <div className="absolute right-2 top-3 z-10 max-w-[52%] rounded-[18px] border border-red-100 bg-white/95 px-3 py-2.5 shadow-xl backdrop-blur md:-right-4 md:top-4 md:max-w-none md:rounded-[20px] md:px-4 md:py-3">
                           <p className="text-[11px] font-black uppercase tracking-[0.22em] text-red-500">
                             {slide.statLabel}
                           </p>
-                          <p className="mt-1 text-2xl font-black text-gray-900">
+                          <p className="mt-1 truncate text-xl font-black text-gray-900 md:text-2xl">
                             {slide.statValue}
                           </p>
                         </div>
@@ -445,7 +444,7 @@ const Home = () => {
                             <img
                               src={slide.image}
                               alt={slide.title}
-                              className="h-[170px] w-full rounded-[16px] object-cover md:h-[245px]"
+                              className="h-[210px] w-full rounded-[16px] object-contain md:h-[245px] md:object-cover"
                             />
                           </div>
                         </div>
@@ -466,24 +465,26 @@ const Home = () => {
 
               <button
                 onClick={showPrevSlide}
-                className="absolute left-2 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-red-100 bg-white text-red-600 shadow-lg transition hover:scale-105 hover:bg-red-50"
+                aria-label="Previous slide"
+                className="absolute left-2 top-[57%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/95 text-red-600 shadow-lg transition hover:scale-105 hover:bg-red-50 md:top-1/2 md:h-9 md:w-9"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
               <button
                 onClick={showNextSlide}
-                className="absolute right-2 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-red-100 bg-white text-red-600 shadow-lg transition hover:scale-105 hover:bg-red-50"
+                aria-label="Next slide"
+                className="absolute right-2 top-[57%] z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/95 text-red-600 shadow-lg transition hover:scale-105 hover:bg-red-50 md:top-1/2 md:h-9 md:w-9"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
 
-              <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between gap-3 md:bottom-4 md:left-8 md:right-8">
+              <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between gap-3 md:left-8 md:right-8">
                 <div className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.24em] text-red-600 shadow-md">
                   0{currentSlide + 1} / 0{heroSlides.length}
                 </div>
 
-                <div className="flex max-w-[70%] items-center gap-1 overflow-x-auto rounded-full bg-white/85 px-2 py-1.5 shadow-md">
+                <div className="scrollbar-none flex max-w-[72%] items-center gap-1 overflow-x-auto rounded-full bg-white/95 px-2 py-1.5 shadow-md">
                   {heroSlides.map((slide, index) => (
                     <button
                       key={slide._id || index}
@@ -508,14 +509,14 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="mt-6 bg-gray-100 px-4 py-4 md:px-16">
-        <div className="flex flex-wrap items-center justify-center gap-4 md:justify-between">
+      <section className="mt-5 border-y border-slate-100 bg-slate-50 px-4 py-5 md:mt-6 md:px-16">
+        <div className="grid grid-cols-5 items-center gap-x-5 gap-y-4 md:flex md:justify-between">
           {brands.map((src, i) => (
             <img
               key={i}
               src={src}
               alt="brand"
-              className="h-8 object-contain md:h-14"
+              className="mx-auto h-7 w-full object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-14"
             />
           ))}
         </div>
@@ -545,7 +546,7 @@ const Home = () => {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600 transition group-hover:bg-red-600 group-hover:text-white">
-                  <Icon className="h-7 w-7" />
+                  {React.createElement(Icon, { className: "h-7 w-7" })}
                 </div>
 
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-slate-500 transition group-hover:bg-red-50 group-hover:text-red-600">
