@@ -45,7 +45,6 @@ export const productCategoryOptions = [
   { id: "Lcd", label: "Monitor / LCD" },
   { id: "Printer", label: "Printer" },
   { id: "Ink", label: "Ink" },
-  { id: "HDD", label: "HDD" },
   { id: "SSD", label: "SSD" },
   { id: "Network", label: "Network" },
   { id: "All In One", label: "All In One" },
@@ -119,9 +118,6 @@ export const addProductFormElement = [
     ]
 
     export const filterOptions = {
-  category: [
-    ...productCategoryOptions.filter((option) => option.id !== "SSD"),
-  ],
   brand: [
     { id: "HP", label: "HP" },
     { id: "EPSON", label: "EPSON" },
@@ -144,6 +140,9 @@ export const addProductFormElement = [
     { id: "D-link", label: "D-link" },
     { id: "Edimax", label: "Edimax" },
     { id: "Others", label: "Others" },
+  ],
+  category: [
+    ...productCategoryOptions.filter((option) => option.id !== "SSD"),
   ],
 };
 
@@ -194,7 +193,6 @@ export const sortOptions = [
   Laptop: "Laptop",
   Printer: "Printer",
   Ink: "Ink",
-  HDD: "HDD",
   SSD: "SSD",
   Network: "Network",
   LCD: "Monitor / LCD",

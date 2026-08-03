@@ -2,13 +2,12 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config/index";
 import { Badge } from "../ui/badge";
-import { Eye, LogIn, ShoppingCart } from "lucide-react";
+import { Eye, ShoppingCart } from "lucide-react";
 
 function ShoppingProductTile({
   product,
   handleGetProductDetails,
   handleAddToCart,
-  requiresLogin = false,
 }) {
   const hasSalePrice = Number(product?.salePrice) > 0;
   const displayPrice = hasSalePrice ? product?.salePrice : product?.price;
@@ -133,19 +132,11 @@ function ShoppingProductTile({
         <Button
           onClick={handleAddToCartClick}
           disabled={product?.totalStock === 0}
-          title={requiresLogin ? "Login to add this item" : "Add to cart"}
-          className={`flex h-10 items-center justify-center rounded-2xl bg-red-600 text-white hover:bg-red-700 ${
-            requiresLogin ? "w-auto whitespace-nowrap px-2 text-[11px] font-bold uppercase tracking-[0.12em] min-[360px]:px-3" : "w-10"
-          }`}
+          title="Add to cart"
+          aria-label="Add to cart"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-red-600 p-0 text-white hover:bg-red-700"
         >
-          {requiresLogin ? (
-            <>
-              <LogIn className="mr-1 h-4 w-4" />
-              Login
-            </>
-          ) : (
-            <ShoppingCart className="h-4 w-4" />
-          )}
+          <ShoppingCart className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>

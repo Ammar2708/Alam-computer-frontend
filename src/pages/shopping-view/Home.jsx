@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -22,7 +22,10 @@ import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ShoppingProductTile from "@/components/shoppping-view/ProductTile";
 import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
 import PopupModal from "@/components/comman/PopupModel";
-import LoginRequiredDialog from "@/components/shoppping-view/LoginRequiredDialog";
+import { getCartOwnerId } from "@/utils/cartOwner";
+
+const DISMISSED_POPUP_ID_KEY = "homepage-dismissed-popup-id";
+const FEATURED_PRODUCT_CATEGORIES = ["Laptop", "Printer", "All In One", "Ink"];
 
 const brands = [
   "/img4.png",
@@ -72,8 +75,6 @@ const Home = () => {
   const [popup, setPopup] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [popupCartLoading, setPopupCartLoading] = useState(false);
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
-  const [pendingCartAction, setPendingCartAction] = useState(null);
 
   const { productList = [], productDetails = null, isLoading } = useSelector(
     (state) => state.shopProducts || {}
@@ -82,7 +83,17 @@ const Home = () => {
   const { cartItems = { items: [] } } = useSelector(
     (state) => state.cart || {}
   );
-  const userId = user?.id || user?._id;
+  const userId = getCartOwnerId(user);
+  const featuredProducts = useMemo(
+    () =>
+      FEATURED_PRODUCT_CATEGORIES.map((category) =>
+        productList.find(
+          (product) =>
+            product?.category?.trim().toLowerCase() === category.toLowerCase()
+        )
+      ).filter(Boolean),
+    [productList]
+  );
 
   useEffect(() => {
     dispatch(fetchAllFilteredProducts({}));
@@ -146,6 +157,15 @@ const Home = () => {
           return;
         }
 
+        if (
+          data._id &&
+          window.localStorage.getItem(DISMISSED_POPUP_ID_KEY) === data._id
+        ) {
+          setPopup(data);
+          setShowPopup(false);
+          return;
+        }
+
         setPopup(data);
 
         popupTimer = window.setTimeout(() => {
@@ -173,6 +193,13 @@ const Home = () => {
     setShowPopup(false);
   };
 
+  const handleDismissPopup = () => {
+    if (popup?._id) {
+      window.localStorage.setItem(DISMISSED_POPUP_ID_KEY, popup._id);
+    }
+    setShowPopup(false);
+  };
+
   const popupProduct =
     (popup?.productId && typeof popup.productId === "object"
       ? popup.productId
@@ -180,22 +207,12 @@ const Home = () => {
     productList?.find((product) => product._id === popup?.productId) ||
     null;
 
-  const queueLoginForCart = (productId, source = "product") => {
-    setPendingCartAction({ productId, source });
-    setLoginDialogOpen(true);
-  };
-
   const addProductToCartForUser = async (
     productId,
     loggedInUser = user,
     source = "product"
   ) => {
-    const activeUserId = loggedInUser?.id || loggedInUser?._id;
-
-    if (!activeUserId) {
-      queueLoginForCart(productId, source);
-      return;
-    }
+    const activeUserId = getCartOwnerId(loggedInUser);
 
     const currentProduct =
       source === "popup"
@@ -262,11 +279,6 @@ const Home = () => {
       return;
     }
 
-    if (!userId) {
-      queueLoginForCart(popupProductId, "popup");
-      return;
-    }
-
     try {
       setPopupCartLoading(true);
       await addProductToCartForUser(popupProductId, user, "popup");
@@ -286,35 +298,7 @@ const Home = () => {
   };
 
   const handleAddToCart = (currentProductId) => {
-    if (!userId) {
-      queueLoginForCart(currentProductId);
-      return;
-    }
-
     addProductToCartForUser(currentProductId, user);
-  };
-
-  const handleLoginSuccess = async (loggedInUser) => {
-    const queuedAction = pendingCartAction;
-    setPendingCartAction(null);
-
-    if (!queuedAction?.productId) return;
-
-    try {
-      if (queuedAction.source === "popup") {
-        setPopupCartLoading(true);
-      }
-
-      await addProductToCartForUser(
-        queuedAction.productId,
-        loggedInUser,
-        queuedAction.source
-      );
-    } finally {
-      if (queuedAction.source === "popup") {
-        setPopupCartLoading(false);
-      }
-    }
   };
 
   const goToSlide = (index) => {
@@ -610,14 +594,13 @@ const Home = () => {
         )}
 
         <div className="mt-6 grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-4 md:gap-8">
-          {productList && productList.length > 0 ? (
-            productList.slice(0, 4).map((product) => (
+          {featuredProducts.length > 0 ? (
+            featuredProducts.map((product) => (
               <ShoppingProductTile
                 key={product._id}
                 product={product}
                 handleGetProductDetails={handleGetProductDetails}
                 handleAddToCart={handleAddToCart}
-                requiresLogin={!userId}
               />
             ))
           ) : (
@@ -646,15 +629,7 @@ const Home = () => {
         setOpen={handleCloseDialog}
         productDetails={productDetails}
         handleAddToCart={handleAddToCart}
-        requiresLogin={!userId}
-      />
-
-      <LoginRequiredDialog
-        open={loginDialogOpen}
-        onOpenChange={setLoginDialogOpen}
-        onLoginSuccess={handleLoginSuccess}
-        title="Login To Add Item"
-        description="Please login to add this product to your cart."
+        requiresLogin={false}
       />
 
       {showPopup && popup && (
@@ -662,6 +637,7 @@ const Home = () => {
           popup={popup}
           product={popupProduct}
           onClose={handleClosePopup}
+          onDismiss={handleDismissPopup}
           onShopNow={handlePopupShopNow}
           isAddingToCart={popupCartLoading}
         />

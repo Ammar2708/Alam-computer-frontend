@@ -4,6 +4,7 @@ function PopupModal({
   popup,
   product,
   onClose,
+  onDismiss,
   onShopNow,
   isAddingToCart = false,
 }) {
@@ -16,7 +17,7 @@ function PopupModal({
         <div className="absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top_right,_rgba(239,68,68,0.22),_transparent_58%),linear-gradient(90deg,rgba(248,250,252,0.95),rgba(255,255,255,0.6))]" />
 
         <button
-          onClick={onClose}
+          onClick={onDismiss}
           className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-500 transition hover:border-red-200 hover:text-red-600"
           aria-label="Close popup"
         >

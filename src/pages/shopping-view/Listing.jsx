@@ -27,7 +27,7 @@ import {
 } from "@/store/shop/product-slice";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { useSearchParams } from "react-router-dom";
-import LoginRequiredDialog from "@/components/shoppping-view/LoginRequiredDialog";
+import { getCartOwnerId } from "@/utils/cartOwner";
 
 const sortOptions = [
   { id: "price-lowtohigh", label: "Price: Low to High" },
@@ -37,6 +37,7 @@ const sortOptions = [
 ];
 
 const filterParamKeys = ["category", "brand"];
+const removedCategoryIds = ["HDD"];
 
 const categoryLabelMap = {
   Laptop: "Laptops",
@@ -44,7 +45,6 @@ const categoryLabelMap = {
   LCD: "Monitors",
   Printer: "Printers",
   Ink: "Ink",
-  HDD: "HDD",
   SSD: "SSD",
   Network: "Network",
   "All In One": "All-in-One",
@@ -57,7 +57,15 @@ function getFiltersFromSearchParams(searchParams) {
     const value = searchParams.get(key);
 
     if (value) {
-      acc[key] = value.split(",").filter(Boolean);
+      const values = value.split(",").filter(Boolean);
+      acc[key] =
+        key === "category"
+          ? values.filter((category) => !removedCategoryIds.includes(category))
+          : values;
+
+      if (acc[key].length === 0) {
+        delete acc[key];
+      }
     }
 
     return acc;
@@ -78,6 +86,26 @@ function createSearchParamsHelper(filters, existingSearchParams) {
     if (Array.isArray(value) && value.length > 0) {
       params.set(key, value.join(","));
     }
+  }
+
+  return params;
+}
+
+function removeUnavailableCategoriesFromSearchParams(existingSearchParams) {
+  const params = new URLSearchParams(existingSearchParams);
+  const categoryParam = params.get("category");
+
+  if (!categoryParam) return params;
+
+  const categories = categoryParam.split(",").filter(Boolean);
+  const availableCategories = categories.filter(
+    (category) => !removedCategoryIds.includes(category)
+  );
+
+  if (availableCategories.length > 0) {
+    params.set("category", availableCategories.join(","));
+  } else {
+    params.delete("category");
   }
 
   return params;
@@ -111,10 +139,8 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
     ? categoryTitle
     : "All Products";
   const [open, setOpen] = useState(false);
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [pendingCartProductId, setPendingCartProductId] = useState(null);
-  const userId = user?.id || user?._id;
+  const userId = getCartOwnerId(user);
 
   const handleSort = (value) => {
     setSort(value);
@@ -164,16 +190,10 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
   };
 
   const addProductToCartForUser = async (getCurrentProductId, loggedInUser = user) => {
-    const activeUserId = loggedInUser?.id || loggedInUser?._id;
+    const activeUserId = getCartOwnerId(loggedInUser);
     const currentProduct =
       productList?.find((product) => product._id === getCurrentProductId) ||
       productDetails;
-
-    if (!activeUserId) {
-      setPendingCartProductId(getCurrentProductId);
-      setLoginDialogOpen(true);
-      return;
-    }
 
     if (!currentProduct) {
       toast.error("Product not found");
@@ -210,23 +230,17 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
   };
 
   const handleAddToCart = (getCurrentProductId) => {
-    if (!userId) {
-      setPendingCartProductId(getCurrentProductId);
-      setLoginDialogOpen(true);
-      return;
-    }
-
     addProductToCartForUser(getCurrentProductId, user);
   };
 
-  const handleLoginSuccess = (loggedInUser) => {
-    const productId = pendingCartProductId;
-    setPendingCartProductId(null);
+  useEffect(() => {
+    const cleanedParams =
+      removeUnavailableCategoriesFromSearchParams(searchParamsString);
 
-    if (!productId) return;
-
-    addProductToCartForUser(productId, loggedInUser);
-  };
+    if (cleanedParams.toString() !== searchParamsString) {
+      setSearchParams(cleanedParams, { replace: true });
+    }
+  }, [searchParamsString, setSearchParams]);
 
   // fetch filtered products
   useEffect(() => {
@@ -414,7 +428,6 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
                   product={product}
                   handleGetProductDetails={handleGetProductDetails}
                   handleAddToCart={handleAddToCart}
-                  requiresLogin={!userId}
                 />
               ))
             ) : (
@@ -430,15 +443,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
           setOpen={handleCloseDialog}
           productDetails={productDetails}
           handleAddToCart={handleAddToCart}
-          requiresLogin={!userId}
-        />
-
-        <LoginRequiredDialog
-          open={loginDialogOpen}
-          onOpenChange={setLoginDialogOpen}
-          onLoginSuccess={handleLoginSuccess}
-          title="Login To Add Item"
-          description="Please login to add this product to your cart."
+          requiresLogin={false}
         />
       </div>
 

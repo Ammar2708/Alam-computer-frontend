@@ -21,6 +21,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { fetchCartItems } from "../../store/shop/cart-slice/index";
+import { getCartOwnerId } from "@/utils/cartOwner";
 import CartWrapper from "./CartWrapper";
 
 const avatarThemes = [
@@ -36,7 +37,6 @@ const searchCategoryOptions = [
   { value: "Laptop", label: "Laptops" },
   { value: "Lcd", label: "Monitors" },
   { value: "Printer", label: "Printers" },
-  { value: "HDD", label: "HDD" },
   { value: "Ink", label: "Ink" },
   { value: "Network", label: "Network" },
   { value: "All In One", label: "All-in-One" },
@@ -70,21 +70,24 @@ function ShoppingHeader() {
   const { cartItems } = useSelector((state) => state.cart || { items: [] });
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const userId = user?.id || user?._id;
+  const userId = getCartOwnerId(user);
 
   const totalCartItems =
     cartItems?.items?.reduce((acc, item) => acc + (item?.quantity || 0), 0) || 0;
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchCartItems(userId));
-    }
+    dispatch(fetchCartItems(userId));
   }, [dispatch, userId]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    const category = params.get("category") || "";
+    const hasSearchCategory = searchCategoryOptions.some(
+      (option) => option.value === category
+    );
+
     setSearchTerm(params.get("search") || "");
-    setSelectedSearchCategory(params.get("category") || "");
+    setSelectedSearchCategory(hasSearchCategory ? category : "");
   }, [location.search]);
 
   const handleLogout = () => dispatch(logoutUser());
@@ -125,7 +128,6 @@ function ShoppingHeader() {
     { to: "/shop/listing?category=Laptop", label: "LAPTOPS" },
     { to: "/shop/listing?category=Lcd", label: "MONITOR" },
     { to: "/shop/listing?category=Printer", label: "PRINTER" },
-    { to: "/shop/listing?category=HDD", label: "HDD" },
     { to: "/shop/listing?category=Ink", label: "INK" },
     { to: "/shop/listing?category=Network", label: "NETWORK" },
     { to: "/shop/listing?category=All%20In%20One", label: "ALL-IN-ONE" },

@@ -6,6 +6,7 @@ import {
   fetchCartItems,
   updateCartQuantity,
 } from "@/store/shop/cart-slice/index";
+import { getCartOwnerId } from "@/utils/cartOwner";
 import { toast } from "sonner";
 
 function CartItemsContent({ cartItem }) {
@@ -15,7 +16,7 @@ function CartItemsContent({ cartItem }) {
   );
 
   const dispatch = useDispatch();
-  const userId = user?.id || user?._id;
+  const userId = getCartOwnerId(user);
 
   const handleUpdateQuantity = async (type) => {
     if (!cartItem || !userId) return;

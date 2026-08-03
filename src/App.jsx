@@ -216,7 +216,6 @@ function App() {
           <Route path="Monitor" element={<Navigate to="/shop/listing?category=Lcd" replace />} />
           <Route path="Printer" element={<Navigate to="/shop/listing?category=Printer" replace />} />
           <Route path="Ink" element={<Navigate to="/shop/listing?category=Ink" replace />} />
-          <Route path="HDD" element={<Navigate to="/shop/listing?category=HDD" replace />} />
           <Route path="SSD" element={<Navigate to="/shop/listing?category=SSD" replace />} />
           <Route path="Network" element={<Navigate to="/shop/listing?category=Network" replace />} />
           <Route path="All" element={<Navigate to="/shop/listing?category=All%20In%20One" replace />} />
