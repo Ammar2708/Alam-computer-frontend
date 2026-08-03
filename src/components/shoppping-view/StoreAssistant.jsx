@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Bot, ExternalLink, MessageCircle, Send, Sparkles, X } from "lucide-react";
+import { Bot, ExternalLink, LoaderCircle, MessageCircle, Send, Sparkles, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAllFilteredProducts } from "@/store/shop/product-slice";
 import { storeContact } from "@/config/contact";
+import { getApiUrl } from "@/config/api";
 
 const welcomeMessage = {
   id: "welcome",
@@ -19,6 +20,8 @@ function StoreAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([welcomeMessage]);
+  const [isReplying, setIsReplying] = useState(false);
+  const [showNudge, setShowNudge] = useState(false);
   const messagesEndRef = useRef(null);
   const messageIdRef = useRef(0);
   const navigate = useNavigate();
@@ -28,6 +31,11 @@ function StoreAssistant() {
   useEffect(() => {
     if (!productList.length) dispatch(fetchAllFilteredProducts({}));
   }, [dispatch, productList.length]);
+
+  useEffect(() => {
+    const nudgeTimer = window.setTimeout(() => setShowNudge(true), 1800);
+    return () => window.clearTimeout(nudgeTimer);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -98,16 +106,42 @@ function StoreAssistant() {
     };
   };
 
-  const sendMessage = (value) => {
+  const sendMessage = async (value) => {
     const query = value.trim();
-    if (!query) return;
+    if (!query || isReplying) return;
 
     messageIdRef.current += 1;
     const messageId = messageIdRef.current;
     const userMessage = { id: `user-${messageId}`, role: "user", text: query };
-    const reply = { id: `assistant-${messageId}`, role: "assistant", ...getReply(query) };
-    setMessages((current) => [...current, userMessage, reply]);
+    const conversation = [...messages, userMessage];
+    setMessages(conversation);
     setInput("");
+    setIsReplying(true);
+
+    try {
+      const response = await fetch(getApiUrl("/api/assistant/chat"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: conversation.map(({ role, text }) => ({ role, text })),
+        }),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data?.reply) throw new Error(data?.message || "Assistant unavailable");
+
+      setMessages((current) => [
+        ...current,
+        { id: `assistant-${messageId}`, role: "assistant", text: data.reply },
+      ]);
+    } catch {
+      setMessages((current) => [
+        ...current,
+        { id: `assistant-${messageId}`, role: "assistant", ...getReply(query) },
+      ]);
+    } finally {
+      setIsReplying(false);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -116,7 +150,7 @@ function StoreAssistant() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[70] sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6" style={{ zIndex: 9999 }}>
       {isOpen && (
         <section
           className="mb-3 flex h-[min(540px,72vh)] w-[calc(100vw-2rem)] max-w-[360px] flex-col overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.28)]"
@@ -199,6 +233,11 @@ function StoreAssistant() {
                 )}
               </div>
             ))}
+            {isReplying && (
+              <div className="mr-20 flex items-center gap-2 rounded-2xl rounded-bl-md border border-slate-100 bg-white px-3.5 py-3 text-xs font-semibold text-slate-500 shadow-sm">
+                <LoaderCircle className="h-4 w-4 animate-spin text-red-600" /> Thinking...
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -208,7 +247,7 @@ function StoreAssistant() {
                 <button
                   key={prompt}
                   type="button"
-                  onClick={() => sendMessage(prompt)}
+                  onClick={() => void sendMessage(prompt)}
                   className="shrink-0 rounded-full border border-red-100 bg-red-50 px-3 py-1.5 text-[11px] font-bold text-red-700"
                 >
                   {prompt}
@@ -227,7 +266,7 @@ function StoreAssistant() {
             />
             <button
               type="submit"
-              disabled={!input.trim()}
+              disabled={!input.trim() || isReplying}
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-600 text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Send message"
             >
@@ -237,14 +276,34 @@ function StoreAssistant() {
         </section>
       )}
 
-      <button
-        type="button"
-        onClick={() => setIsOpen((current) => !current)}
-        className="ml-auto flex h-13 w-13 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_10px_28px_rgba(220,38,38,0.42)] ring-4 ring-white transition hover:scale-105 hover:bg-red-700"
-        aria-label={isOpen ? "Close store assistant" : "Open store assistant"}
-      >
-        {isOpen ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
-      </button>
+      {!isOpen && showNudge && (
+        <button
+          type="button"
+          onClick={() => {
+            setIsOpen(true);
+            setShowNudge(false);
+          }}
+          className="absolute bottom-2 right-16 w-48 rounded-2xl rounded-br-sm border border-slate-200 bg-white px-3 py-2.5 text-left text-xs font-bold leading-4 text-slate-700 shadow-xl"
+        >
+          <span className="block text-[10px] font-black uppercase tracking-[0.14em] text-red-600">Need help?</span>
+          Ask me about products or orders.
+        </button>
+      )}
+
+      <div className="relative ml-auto h-14 w-14">
+        {!isOpen && <span className="absolute inset-0 animate-ping rounded-full bg-red-500/35" />}
+        <button
+          type="button"
+          onClick={() => {
+            setIsOpen((current) => !current);
+            setShowNudge(false);
+          }}
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_10px_28px_rgba(220,38,38,0.48)] ring-4 ring-white transition hover:scale-105 hover:bg-red-700"
+          aria-label={isOpen ? "Close store assistant" : "Open store assistant"}
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <MessageCircle className="h-6 w-6" />}
+        </button>
+      </div>
     </div>
   );
 }
