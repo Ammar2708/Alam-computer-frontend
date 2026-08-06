@@ -26,8 +26,10 @@ import {
   resetProductDetails,
 } from "@/store/shop/product-slice";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getCartOwnerId } from "@/utils/cartOwner";
+import PageSeo from "@/components/seo/PageSeo";
+import { categorySlugMap } from "@/lib/shopUrls";
 
 const sortOptions = [
   { id: "price-lowtohigh", label: "Price: Low to High" },
@@ -121,12 +123,14 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
   const { cartItems = { items: [] } } = useSelector((state) => state.cart || {});
 
   const [sort, setSort] = useState("price-lowtohigh");
+  const { categorySlug } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsString = searchParams.toString();
-  const filters = useMemo(
-    () => getFiltersFromSearchParams(new URLSearchParams(searchParamsString)),
-    [searchParamsString]
-  );
+  const filters = useMemo(() => {
+    const result = getFiltersFromSearchParams(new URLSearchParams(searchParamsString));
+    if (categorySlugMap[categorySlug]) result.category = [categorySlugMap[categorySlug]];
+    return result;
+  }, [categorySlug, searchParamsString]);
   const searchQuery = searchParams.get("search")?.trim() || "";
   const categoryTitle = filters.category
     ?.map((category) => categoryLabelMap[category] || category)
@@ -279,6 +283,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
 
   return (
     <>
+      <PageSeo title={`${listingTitle} – Computer Shop UAE`} description={`Shop ${listingTitle.toLowerCase()} from Alam Computer. Browse specifications, prices and availability in the UAE.`} canonical={`${(import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "")}${categorySlug ? `/${categorySlug}` : "/shop/listing"}`} />
       <div className="flex min-h-screen flex-col gap-4 bg-gray-50 p-3 sm:p-4 lg:flex-row lg:gap-6">
         <div className="rounded-[28px] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent_32%),linear-gradient(135deg,#dc2626,#991b1b)] p-4 text-white shadow-[0_18px_40px_rgba(153,27,27,0.22)] lg:hidden">
           <p className="text-[11px] font-black uppercase tracking-[0.3em] text-red-100">

@@ -3,12 +3,14 @@ import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config/index";
 import { Badge } from "../ui/badge";
 import { Eye, ShoppingCart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { productUrl } from "@/lib/shopUrls";
 
 function ShoppingProductTile({
   product,
-  handleGetProductDetails,
   handleAddToCart,
 }) {
+  const navigate = useNavigate();
   const hasSalePrice = Number(product?.salePrice) > 0;
   const displayPrice = hasSalePrice ? product?.salePrice : product?.price;
   const productImages =
@@ -31,9 +33,7 @@ function ShoppingProductTile({
       : null;
 
   const handleTileClick = () => {
-    if (handleGetProductDetails && product?._id) {
-      handleGetProductDetails(product._id);
-    }
+    if (product?._id) navigate(productUrl(product));
   };
 
   const handleAddToCartClick = (e) => {
@@ -61,7 +61,10 @@ function ShoppingProductTile({
           <div className="flex h-[150px] items-center justify-center rounded-[18px] bg-slate-50">
             <img
               src={primaryImage}
-              alt={product?.title}
+              alt={`${product?.title}${brandLabel ? ` by ${brandLabel}` : ""} – ${categoryLabel}`}
+              loading="lazy"
+              width="480"
+              height="480"
               className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
             />
           </div>
@@ -91,7 +94,7 @@ function ShoppingProductTile({
           </div>
 
           <h2 className="mb-2 min-h-[38px] line-clamp-2 text-[13px] font-black uppercase leading-[1.15] tracking-tight text-slate-900">
-            {product?.title}
+            <Link to={productUrl(product)} onClick={(event) => event.stopPropagation()}>{product?.title}</Link>
           </h2>
 
           <div className="mt-auto rounded-2xl border border-slate-100 bg-slate-50 p-3">

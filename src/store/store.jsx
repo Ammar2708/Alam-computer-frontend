@@ -8,8 +8,7 @@ import sliderReducer from "./slider/sliderSlice";
 import shopOrderSlice from "./order-slice/index";
 import checkoutSettingsReducer from "./settings-slice";
 
-export const store = configureStore({
-  reducer: {
+const reducer = {
     auth: authReducer,
     adminProducts: AdminProductslice,
     shopProducts: ShopProductSlice,
@@ -18,5 +17,9 @@ export const store = configureStore({
     slider: sliderReducer,
     orders: shopOrderSlice,
     checkoutSettings: checkoutSettingsReducer,
-  },
-});
+};
+
+export const createAppStore = (preloadedState) =>
+  configureStore({ reducer, preloadedState });
+
+export const store = createAppStore();

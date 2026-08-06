@@ -123,15 +123,15 @@ function ShoppingHeader() {
   const avatarTheme = getAvatarTheme(userName);
 
   const links = [
-    { to: "/shop/home", label: "HOME" },
+    { to: "/", label: "HOME" },
     { to: "/shop/listing", label: "PRODUCTS" },
-    { to: "/shop/listing?category=Laptop", label: "LAPTOPS" },
-    { to: "/shop/listing?category=Lcd", label: "MONITOR" },
-    { to: "/shop/listing?category=Printer", label: "PRINTER" },
-    { to: "/shop/listing?category=Ink", label: "INK" },
-    { to: "/shop/listing?category=Network", label: "NETWORK" },
-    { to: "/shop/listing?category=All%20In%20One", label: "ALL-IN-ONE" },
-    { to: "/shop/listing?category=Towner", label: "TONERS" },
+    { to: "/laptops", label: "LAPTOPS" },
+    { to: "/monitors", label: "MONITOR" },
+    { to: "/printers", label: "PRINTER" },
+    { to: "/ink", label: "INK" },
+    { to: "/networking", label: "NETWORK" },
+    { to: "/all-in-one-computers", label: "ALL-IN-ONE" },
+    { to: "/toners", label: "TONERS" },
     { to: "/shop/contact", label: "CONTACT" },
   ];
 
@@ -175,9 +175,9 @@ function ShoppingHeader() {
               <p className="text-[11px] font-black uppercase tracking-[0.3em] text-red-100">
                 Alam Computer
               </p>
-              <h1 className="mt-1 text-2xl font-black uppercase leading-none tracking-tighter">
+              <div className="mt-1 text-2xl font-black uppercase leading-none tracking-tighter">
                 Tech Store
-              </h1>
+              </div>
               <p className="mt-1 text-xs font-semibold text-red-100">
                 Laptops, parts, printers and network gear.
               </p>

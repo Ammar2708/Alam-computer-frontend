@@ -204,7 +204,7 @@ function StoreAssistant() {
                     }}
                     className="mt-2 flex w-full items-center gap-2 rounded-xl border border-slate-200 bg-white p-2 text-left transition hover:border-red-200"
                   >
-                    <img src={product.image} alt="" className="h-10 w-10 rounded-lg bg-slate-50 object-contain" />
+                    <img src={product.image} alt={`${product.title || "Product"} thumbnail`} className="h-10 w-10 rounded-lg bg-slate-50 object-contain" loading="lazy" />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-xs font-bold text-slate-800">{product.title}</span>
                       <span className="text-[11px] font-black text-red-600">AED {product.salePrice || product.price}</span>

@@ -23,6 +23,7 @@ import ShoppingProductTile from "@/components/shoppping-view/ProductTile";
 import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
 import PopupModal from "@/components/comman/PopupModel";
 import { getCartOwnerId } from "@/utils/cartOwner";
+import PageSeo from "@/components/seo/PageSeo";
 
 const DISMISSED_POPUP_ID_KEY = "homepage-dismissed-popup-id";
 const FEATURED_PRODUCT_CATEGORIES = ["Laptop", "Printer", "All In One", "Ink"];
@@ -320,6 +321,8 @@ const Home = () => {
 
   return (
     <div className="w-full">
+      <PageSeo title="Computer, Laptop & Accessories Shop in UAE | Alam Computer" description="Shop laptops, printers, monitors, networking equipment and computer accessories from Alam Computer in the UAE." canonical={`${(import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "")}/`} />
+      <h1 className="sr-only">Computer, Laptop and Accessories Shop in the UAE</h1>
       <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
         <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
           {heroSlides.length > 0 ? (
@@ -349,9 +352,9 @@ const Home = () => {
                           </span>
                         </div>
 
-                        <h1 className="mt-4 max-w-2xl text-[1.65rem] font-black uppercase leading-[1.02] tracking-[-0.03em] md:text-4xl">
+                        <h2 className="mt-4 max-w-2xl text-[1.65rem] font-black uppercase leading-[1.02] tracking-[-0.03em] md:text-4xl">
                           {slide.title}
-                        </h1>
+                        </h2>
 
                         <p className="mt-3 max-w-xl text-sm font-medium leading-5 text-white/75 md:text-sm">
                           {slide.description}

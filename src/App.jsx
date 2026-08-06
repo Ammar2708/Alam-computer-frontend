@@ -101,6 +101,7 @@ import ShoppingHome from "./pages/shopping-view/Home";
 import ShoppingListing from "./pages/shopping-view/Listing";
 import ShoppingAccount from "./pages/shopping-view/Account";
 import ShoppingCheckout from "./pages/shopping-view/Checkout";
+import ShoppingProduct from "./pages/shopping-view/Product";
 import Contact from "./components/shoppping-view/Contact";
 import NotFound from "./pages/not-found/Index";
 import CheckAuth from "./components/comman/CheckAuth";
@@ -139,7 +140,9 @@ function App() {
     <div className="flex flex-col overflow-x-hidden bg-white">
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Navigate to="/shop/home" replace />} />
+        <Route path="/" element={<ShoppingLayout />}>
+          <Route index element={<ShoppingHome />} />
+        </Route>
         <Route
           path="/auth"
           element={
@@ -212,6 +215,8 @@ function App() {
         </Route>
         <Route path="/cart" element={<Navigate to="/shop/checkout" replace />} />
         <Route element={<ShoppingLayout />}>
+          <Route path=":categorySlug/:productId/:productSlug" element={<ShoppingProduct />} />
+          <Route path=":categorySlug" element={<ShoppingListing />} />
           <Route path="Laptop" element={<Navigate to="/shop/listing?category=Laptop" replace />} />
           <Route path="Monitor" element={<Navigate to="/shop/listing?category=Lcd" replace />} />
           <Route path="Printer" element={<Navigate to="/shop/listing?category=Printer" replace />} />

@@ -71,7 +71,7 @@ function ProductDetailsDialog({
             {activeImage ? (
               <img
                 src={activeImage}
-                alt={productDetails?.title}
+                alt={`${productDetails?.title} by ${productDetails?.brand || "Alam Computer"} – ${productDetails?.category || "computer product"}`}
                 className="max-h-[260px] w-full object-contain transition-transform duration-300 hover:scale-105 sm:max-h-[390px]"
               />
             ) : (
@@ -141,9 +141,9 @@ function ProductDetailsDialog({
 
         <div className="flex min-w-0 flex-col">
           <div>
-            <h1 className="text-2xl font-black leading-tight text-gray-900">
+            <h2 className="text-2xl font-black leading-tight text-gray-900">
               {productDetails?.title}
-            </h1>
+            </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-700">
                 {productDetails?.category}
