@@ -17,7 +17,7 @@ export default defineConfig(({ isSsrBuild }) => ({
     },
   },
   build: {
-    outDir: isSsrBuild ? "dist/server" : "dist/client",
+    outDir: isSsrBuild ? "dist/server" : "dist",
     emptyOutDir: true,
   },
 }))
