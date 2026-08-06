@@ -365,28 +365,6 @@ const Home = () => {
   return (
     <div className="w-full">
       <PageSeo title="Alam Computer – Computer Sales, Repair & Spare Parts in Sharjah, UAE" description="Alam Computer in Sharjah offers computer & printer sales, repair, and spare parts. Trusted locally for 15+ years. Visit us in Industrial Area 3, Sharjah, or call +971-5-57112599." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
-      <section className="px-4 pb-3 pt-7 md:px-16 md:pt-10">
-        <div className="mx-auto grid max-w-7xl gap-5 rounded-[28px] border border-slate-200 bg-white px-6 py-7 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[0.95fr_1.05fr] md:items-center md:px-10 md:py-9">
-          <div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-red-600">
-              Serving Sharjah for over 15 years
-            </p>
-        <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 md:text-5xl">
-          Alam Computer – Your Trusted Computer &amp; Printer Shop in Sharjah
-        </h1>
-          </div>
-          <div className="border-t border-slate-200 pt-5 md:border-l md:border-t-0 md:pl-10 md:pt-0">
-        <p className="text-base leading-7 text-slate-600 md:text-lg">
-          Alam Computer has been serving Sharjah and the wider UAE for over 15 years, offering computer sales, printer sales, repair services, and a wide range of spare parts. Whether you need a new laptop, a printer repaired, or hard-to-find computer components, our team in Industrial Area 3, Sharjah is ready to help — in-store or online.
-        </p>
-            <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
-              <span className="rounded-full bg-red-50 px-3 py-2">Sales</span>
-              <span className="rounded-full bg-red-50 px-3 py-2">Repairs</span>
-              <span className="rounded-full bg-red-50 px-3 py-2">Spare Parts</span>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
         <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
           {heroSlides.length > 0 ? (
@@ -573,6 +551,29 @@ const Home = () => {
               <p className="text-sm font-semibold">No sliders available</p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="px-4 pb-3 pt-7 md:px-16 md:pt-10">
+        <div className="mx-auto grid max-w-7xl gap-5 rounded-[28px] border border-slate-200 bg-white px-6 py-7 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[0.95fr_1.05fr] md:items-center md:px-10 md:py-9">
+          <div>
+            <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-red-600">
+              Serving Sharjah for over 15 years
+            </p>
+            <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 md:text-5xl">
+              Alam Computer – Your Trusted Computer &amp; Printer Shop in Sharjah
+            </h1>
+          </div>
+          <div className="border-t border-slate-200 pt-5 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+            <p className="text-base leading-7 text-slate-600 md:text-lg">
+              Alam Computer has been serving Sharjah and the wider UAE for over 15 years, offering computer sales, printer sales, repair services, and a wide range of spare parts. Whether you need a new laptop, a printer repaired, or hard-to-find computer components, our team in Industrial Area 3, Sharjah is ready to help — in-store or online.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
+              <span className="rounded-full bg-red-50 px-3 py-2">Sales</span>
+              <span className="rounded-full bg-red-50 px-3 py-2">Repairs</span>
+              <span className="rounded-full bg-red-50 px-3 py-2">Spare Parts</span>
+            </div>
+          </div>
         </div>
       </section>
 
