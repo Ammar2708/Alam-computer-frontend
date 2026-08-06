@@ -9,6 +9,7 @@ export default function PageSeo({
   image = "/logo1.webp",
   type = "website",
   noindex = false,
+  structuredData,
 }) {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 
@@ -28,6 +29,11 @@ export default function PageSeo({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
       {noindex ? <meta name="robots" content="noindex,nofollow" /> : null}
+      {structuredData ? (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      ) : null}
     </Helmet>
   );
 }

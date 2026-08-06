@@ -67,6 +67,48 @@ const HERO_SLIDE_TRANSITION_MS = 1100;
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+  const storeStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ComputerStore",
+    name: "Alam Computer",
+    alternateName: "Intidhar Alam Computer",
+    image: `${siteUrl}/logo1.webp`,
+    url: siteUrl,
+    telephone: "+971557112599",
+    priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "J&P Roundabout, Industrial Area 3",
+      addressLocality: "Sharjah",
+      addressCountry: "AE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 25.316147,
+      longitude: 55.415842,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "09:00",
+        closes: "21:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 4.3,
+      reviewCount: 77,
+    },
+  };
 
   const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -321,7 +363,7 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <PageSeo title="Computer, Laptop & Accessories Shop in UAE | Alam Computer" description="Shop laptops, printers, monitors, networking equipment and computer accessories from Alam Computer in the UAE." canonical={`${(import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "")}/`} />
+      <PageSeo title="Computer, Laptop & Accessories Shop in UAE | Alam Computer" description="Shop laptops, printers, monitors, networking equipment and computer accessories from Alam Computer in the UAE." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
       <h1 className="sr-only">Computer, Laptop and Accessories Shop in the UAE</h1>
       <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
         <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
