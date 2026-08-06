@@ -76,7 +76,9 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-4 text-sm text-gray-200">
-        <p>&copy; {new Date().getFullYear()} ALAM COMPUTER. All rights reserved.</p>
+        <p>
+          Alam Computer | {storeContact.address} | {storeContact.phoneDisplay} | Open Monday–Saturday 09:00–21:00
+        </p>
 
         <div className="flex gap-4 mt-2 md:mt-0">
           <NavLink to="/terms" className="hover:text-white">Terms</NavLink>

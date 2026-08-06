@@ -1,9 +1,9 @@
 export const storeContact = {
-  phoneDisplay: "+971 557112599",
+  phoneDisplay: "+971-5-57112599",
   phoneHref: "tel:+971557112599",
   email: "alamcomputeruae@gmail.com",
   emailHref: "mailto:alamcomputeruae@gmail.com",
-  address: "J&P Roundabout, Industrial Area 3, Sharjah, UAE",
+  address: "Industrial Area 3, Sharjah, UAE",
   shortAddress: "Industrial Area 3, Sharjah, UAE",
   directionsHref:
     "https://www.google.com/maps/dir/?api=1&destination=J%26P%20Signal%2C%20Industrial%20Area%203%2C%20Sharjah%2C%20UAE",

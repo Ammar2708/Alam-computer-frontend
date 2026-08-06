@@ -24,6 +24,7 @@ import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
 import PopupModal from "@/components/comman/PopupModel";
 import { getCartOwnerId } from "@/utils/cartOwner";
 import PageSeo from "@/components/seo/PageSeo";
+import { externalLinkProps, storeContact } from "@/config/contact";
 
 const DISMISSED_POPUP_ID_KEY = "homepage-dismissed-popup-id";
 const FEATURED_PRODUCT_CATEGORIES = ["Laptop", "Printer", "All In One", "Ink"];
@@ -79,7 +80,7 @@ const Home = () => {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "J&P Roundabout, Industrial Area 3",
+      streetAddress: "Industrial Area 3",
       addressLocality: "Sharjah",
       addressCountry: "AE",
     },
@@ -363,8 +364,15 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <PageSeo title="Computer, Laptop & Accessories Shop in UAE | Alam Computer" description="Shop laptops, printers, monitors, networking equipment and computer accessories from Alam Computer in the UAE." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
-      <h1 className="sr-only">Computer, Laptop and Accessories Shop in the UAE</h1>
+      <PageSeo title="Alam Computer – Computer Sales, Repair & Spare Parts in Sharjah, UAE" description="Alam Computer in Sharjah offers computer & printer sales, repair, and spare parts. Trusted locally for 15+ years. Visit us in Industrial Area 3, Sharjah, or call +971-5-57112599." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
+      <section className="px-4 pb-2 pt-7 text-center md:px-16 md:pt-10">
+        <h1 className="text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
+          Alam Computer – Your Trusted Computer &amp; Printer Shop in Sharjah
+        </h1>
+        <p className="mx-auto mt-4 max-w-4xl text-base leading-7 text-slate-600 md:text-lg">
+          Alam Computer has been serving Sharjah and the wider UAE for over 15 years, offering computer sales, printer sales, repair services, and a wide range of spare parts. Whether you need a new laptop, a printer repaired, or hard-to-find computer components, our team in Industrial Area 3, Sharjah is ready to help — in-store or online.
+        </p>
+      </section>
       <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
         <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
           {heroSlides.length > 0 ? (
@@ -667,6 +675,41 @@ const Home = () => {
           >
             View All Products
           </button>
+        </div>
+      </section>
+
+      <section className="mt-12 bg-slate-50 px-4 py-12 md:px-16">
+        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-black text-slate-950">Computer &amp; Laptop Sales in Sharjah</h2>
+            <p className="mt-3 leading-7 text-slate-600">Shop desktop computers and laptops for home, study, gaming, and business at our Sharjah store. Our team can help you compare specifications and choose a dependable system that fits your work and budget.</p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair</h2>
+            <p className="mt-3 leading-7 text-slate-600">We supply printers for homes, offices, and commercial use, along with compatible ink and toner. If your printer has stopped working or is producing poor-quality prints, visit our shop for practical repair support.</p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-black text-slate-950">Computer Spare Parts</h2>
+            <p className="mt-3 leading-7 text-slate-600">Find replacement and upgrade parts for computers, laptops, and printers, including storage, memory, networking equipment, and accessories. We help customers identify compatible components, including parts that can be difficult to source locally.</p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-black text-slate-950">Why Choose Alam Computer</h2>
+            <p className="mt-3 leading-7 text-slate-600">For more than 15 years, customers across Sharjah have trusted Alam Computer for straightforward advice, reliable products, and local after-sales support. Our 4.3-star rating from 77 reviews reflects the long-term relationships we have built in the community.</p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:col-span-2">
+            <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+              <div>
+                <h2 className="text-2xl font-black text-slate-950">Visit Our Shop</h2>
+                <p className="mt-3 leading-7 text-slate-600">Visit Alam Computer in {storeContact.address} for sales, repairs, and spare-parts support. We are open Monday to Saturday from 09:00 to 21:00; call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> before your visit if you need a specific product or part.</p>
+                <a href={storeContact.directionsHref} className="mt-5 inline-flex rounded-lg bg-red-600 px-5 py-3 font-bold text-white transition hover:bg-red-700" {...externalLinkProps}>Get Directions</a>
+              </div>
+              <iframe title="Alam Computer shop in Industrial Area 3, Sharjah" src={storeContact.mapEmbedUrl} width="100%" height="280" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-xl" />
+            </div>
+          </article>
         </div>
       </section>
 
