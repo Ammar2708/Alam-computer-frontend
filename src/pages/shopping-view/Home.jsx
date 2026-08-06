@@ -702,17 +702,17 @@ const Home = () => {
         <div className="grid gap-5 md:grid-cols-3">
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
             <h2 className="text-2xl font-black text-slate-950">Computer &amp; Laptop Sales in Sharjah</h2>
-            <p className="mt-3 leading-7 text-slate-600">Shop desktop computers and laptops for home, study, gaming, and business at our Sharjah store. Our team can help you compare specifications and choose a dependable system that fits your work and budget.</p>
+            <p className="mt-3 leading-7 text-slate-600">We stock a wide range of desktop computers, laptops, and accessories from trusted brands, suited for home, office, and business use. Our team can help you choose the right system for your budget and needs — visit our shop in Industrial Area 3, Sharjah, or contact us for current stock and pricing.</p>
           </article>
 
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
             <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair</h2>
-            <p className="mt-3 leading-7 text-slate-600">We supply printers for homes, offices, and commercial use, along with compatible ink and toner. If your printer has stopped working or is producing poor-quality prints, visit our shop for practical repair support.</p>
+            <p className="mt-3 leading-7 text-slate-600">Alam Computer sells new and refurbished printers and provides fast, reliable printer repair services for homes and businesses across Sharjah. From ink and toner issues to hardware faults, our technicians diagnose and fix most printer problems on the same day.</p>
           </article>
 
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
             <h2 className="text-2xl font-black text-slate-950">Computer Spare Parts</h2>
-            <p className="mt-3 leading-7 text-slate-600">Find replacement and upgrade parts for computers, laptops, and printers, including storage, memory, networking equipment, and accessories. We help customers identify compatible components, including parts that can be difficult to source locally.</p>
+            <p className="mt-3 leading-7 text-slate-600">Looking for a specific computer part? We carry a large selection of spare parts — including RAM, hard drives, SSDs, motherboards, power supplies, and cables — for most major brands and models. If we don&apos;t have it in stock, we can help source it quickly.</p>
           </article>
 
           <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#270909,#991b1b)] p-7 text-white shadow-xl md:col-span-3">
@@ -723,7 +723,7 @@ const Home = () => {
             </div>
             <div>
             <h2 className="text-2xl font-black">Why Choose Alam Computer</h2>
-            <p className="mt-3 leading-7 text-white/80">For more than 15 years, customers across Sharjah have trusted Alam Computer for straightforward advice, reliable products, and local after-sales support. Our 4.3-star rating from 77 reviews reflects the long-term relationships we have built in the community.</p>
+            <p className="mt-3 leading-7 text-white/80">With over 15 years serving the Sharjah community, Alam Computer has built a reputation for honest pricing and reliable service — reflected in our 4.3-star rating from 77+ Google reviews. We&apos;re a local shop you can walk into, talk to, and trust.</p>
             </div>
             </div>
           </article>
@@ -732,7 +732,7 @@ const Home = () => {
             <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
               <div className="p-4 md:p-7">
                 <h2 className="text-2xl font-black text-slate-950">Visit Our Shop</h2>
-                <p className="mt-3 leading-7 text-slate-600">Visit Alam Computer in {storeContact.address} for sales, repairs, and spare-parts support. We are open Monday to Saturday from 09:00 to 21:00; call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> before your visit if you need a specific product or part.</p>
+                <p className="mt-3 leading-7 text-slate-600">Find us in {storeContact.address}. Call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> to check stock, ask about repairs, or get directions. Open Monday–Saturday, 09:00–21:00.</p>
                 <a href={storeContact.directionsHref} className="mt-5 inline-flex rounded-lg bg-red-600 px-5 py-3 font-bold text-white transition hover:bg-red-700" {...externalLinkProps}>Get Directions</a>
               </div>
               <iframe title="Alam Computer shop in Industrial Area 3, Sharjah" src={storeContact.mapEmbedUrl} width="100%" height="320" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="min-h-[280px] rounded-xl" />
