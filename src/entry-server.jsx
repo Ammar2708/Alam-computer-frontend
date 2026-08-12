@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.jsx";
 import { createAppStore } from "./store/store.jsx";
+import { Toaster } from "./components/ui/sonner.jsx";
 import "./index.css";
 
 export function render(url, preloadedState = {}) {
@@ -15,6 +16,7 @@ export function render(url, preloadedState = {}) {
       <StaticRouter location={url}>
         <Provider store={store}>
           <App />
+          <Toaster position="top-right" />
         </Provider>
       </StaticRouter>
     </HelmetProvider>,
