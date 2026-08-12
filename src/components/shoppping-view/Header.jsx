@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Search,
   ShoppingCart,
@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { fetchCartItems } from "../../store/shop/cart-slice/index";
 import { getCartOwnerId } from "@/utils/cartOwner";
 import CartWrapper from "./CartWrapper";
+import { fetchAvailableProductCategories } from "@/store/shop/product-slice";
 
 const avatarThemes = [
   "bg-white text-red-600",
@@ -55,9 +56,8 @@ const getAvatarTheme = (seed) => {
   return avatarThemes[total % avatarThemes.length];
 };
 
-function ShoppingHeader() {
+function ShoppingHeader({ openCartSheet, setOpenCartSheet }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [openCartSheet, setOpenCartSheet] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSearchCategory, setSelectedSearchCategory] = useState("");
   const location = useLocation();
@@ -69,6 +69,18 @@ function ShoppingHeader() {
 
   const { cartItems } = useSelector((state) => state.cart || { items: [] });
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { availableCategories = [] } = useSelector(
+    (state) => state.shopProducts || {},
+  );
+  const visibleSearchCategoryOptions = useMemo(
+    () =>
+      searchCategoryOptions.filter(
+        (option) =>
+          !option.value ||
+          availableCategories.includes(option.value.toLowerCase()),
+      ),
+    [availableCategories],
+  );
 
   const userId = getCartOwnerId(user);
 
@@ -80,15 +92,19 @@ function ShoppingHeader() {
   }, [dispatch, userId]);
 
   useEffect(() => {
+    dispatch(fetchAvailableProductCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
     const params = new URLSearchParams(location.search);
     const category = params.get("category") || "";
-    const hasSearchCategory = searchCategoryOptions.some(
+    const hasSearchCategory = visibleSearchCategoryOptions.some(
       (option) => option.value === category
     );
 
     setSearchTerm(params.get("search") || "");
     setSelectedSearchCategory(hasSearchCategory ? category : "");
-  }, [location.search]);
+  }, [location.search, visibleSearchCategoryOptions]);
 
   const handleLogout = () => dispatch(logoutUser());
 
@@ -125,15 +141,18 @@ function ShoppingHeader() {
   const links = [
     { to: "/", label: "HOME" },
     { to: "/shop/listing", label: "PRODUCTS" },
-    { to: "/laptops", label: "LAPTOPS" },
-    { to: "/monitors", label: "MONITOR" },
-    { to: "/printers", label: "PRINTER" },
-    { to: "/ink", label: "INK" },
-    { to: "/networking", label: "NETWORK" },
-    { to: "/all-in-one-computers", label: "ALL-IN-ONE" },
-    { to: "/toners", label: "TONERS" },
+    { to: "/laptops", label: "LAPTOPS", category: "Laptop" },
+    { to: "/monitors", label: "MONITOR", category: "Lcd" },
+    { to: "/printers", label: "PRINTER", category: "Printer" },
+    { to: "/ink", label: "INK", category: "Ink" },
+    { to: "/networking", label: "NETWORK", category: "Network" },
+    { to: "/all-in-one-computers", label: "ALL-IN-ONE", category: "All In One" },
+    { to: "/toners", label: "TONERS", category: "Towner" },
     { to: "/shop/contact", label: "CONTACT" },
-  ];
+  ].filter(
+    (link) =>
+      !link.category || availableCategories.includes(link.category.toLowerCase()),
+  );
 
   const getIsActiveLink = (to, isActive) => {
     const isExactActive = currentPath === to;
@@ -238,7 +257,7 @@ function ShoppingHeader() {
               className="mt-2 h-10 w-full rounded-2xl border border-red-100 bg-white px-3 text-xs font-bold uppercase tracking-[0.14em] text-gray-600 outline-none"
               aria-label="Search category"
             >
-              {searchCategoryOptions.map((option) => (
+              {visibleSearchCategoryOptions.map((option) => (
                 <option key={option.value || "all"} value={option.value}>
                   {option.label}
                 </option>
@@ -320,7 +339,7 @@ function ShoppingHeader() {
                   className="w-28 border-l bg-white px-2 text-xs font-medium text-gray-600 outline-none md:w-40 md:text-sm"
                   aria-label="Search category"
                 >
-                  {searchCategoryOptions.map((option) => (
+                  {visibleSearchCategoryOptions.map((option) => (
                     <option key={option.value || "all"} value={option.value}>
                       {option.label}
                     </option>
@@ -355,7 +374,7 @@ function ShoppingHeader() {
             </div>
           </div>
 
-          <div className="flex flex-row space-x-4 border-t border-red-500 px-20 py-4">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-4 border-t border-red-500 px-8 py-4 md:px-16">
             {links.map(({ to, label }) => (
               <NavLink
                 key={`desktop-${to}`}

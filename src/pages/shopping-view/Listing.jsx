@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductFilter from "@/components/shoppping-view/Filter";
 import ShoppingProductTile from "@/components/shoppping-view/ProductTile";
-import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,8 +21,6 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllFilteredProducts,
-  fetchProductDetails,
-  resetProductDetails,
 } from "@/store/shop/product-slice";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -77,9 +74,9 @@ function getFiltersFromSearchParams(searchParams) {
 function createSearchParamsHelper(filters, existingSearchParams) {
   const params = new URLSearchParams(existingSearchParams);
 
-  // Remove old filter params while keeping product details/search state.
+  // Remove old filter params while keeping the search state.
   [...params.keys()].forEach((key) => {
-    if (key !== "pd" && key !== "search") {
+    if (key !== "search") {
       params.delete(key);
     }
   });
@@ -116,7 +113,7 @@ function removeUnavailableCategoriesFromSearchParams(existingSearchParams) {
 const ShoppingListing = ({ setOpenCartSheet }) => {
   const dispatch = useDispatch();
 
-  const { productList = [], productDetails = null } = useSelector(
+  const { productList = [] } = useSelector(
     (state) => state.shopProducts || {}
   );
   const { user = null } = useSelector((state) => state.auth || {});
@@ -142,10 +139,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
     : categoryTitle
     ? categoryTitle
     : "All Products";
-  const [open, setOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const userId = getCartOwnerId(user);
-
   const handleSort = (value) => {
     setSort(value);
   };
@@ -174,30 +168,10 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
     setSearchParams(createSearchParamsHelper(cpyFilters, searchParams));
   };
 
-  const handleGetProductDetails = (productId) => {
-    if (!productId) return;
-
-    dispatch(fetchProductDetails(productId));
-
-    const params = new URLSearchParams(searchParams);
-    params.set("pd", productId);
-    setSearchParams(params);
-  };
-
-  const handleCloseDialog = () => {
-    setOpen(false);
-    dispatch(resetProductDetails());
-
-    const params = new URLSearchParams(searchParams);
-    params.delete("pd");
-    setSearchParams(params);
-  };
-
   const addProductToCartForUser = async (getCurrentProductId, loggedInUser = user) => {
     const activeUserId = getCartOwnerId(loggedInUser);
     const currentProduct =
-      productList?.find((product) => product._id === getCurrentProductId) ||
-      productDetails;
+      productList?.find((product) => product._id === getCurrentProductId);
 
     if (!currentProduct) {
       toast.error("Product not found");
@@ -258,28 +232,6 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
       })
     );
   }, [dispatch, filters, searchQuery, sort]);
-
-  // open product details from query param
-  useEffect(() => {
-    const productId = searchParams.get("pd");
-    if (productId) {
-      dispatch(fetchProductDetails(productId));
-    }
-  }, [dispatch, searchParams]);
-
-  useEffect(() => {
-    if (productDetails) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [productDetails]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetProductDetails());
-    };
-  }, [dispatch]);
 
   return (
     <>
@@ -431,7 +383,6 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
                 <ShoppingProductTile
                   key={product._id}
                   product={product}
-                  handleGetProductDetails={handleGetProductDetails}
                   handleAddToCart={handleAddToCart}
                 />
               ))
@@ -443,13 +394,6 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
           </div>
         </div>
 
-        <ProductDetailsDialog
-          open={open}
-          setOpen={handleCloseDialog}
-          productDetails={productDetails}
-          handleAddToCart={handleAddToCart}
-          requiresLogin={false}
-        />
       </div>
 
       <Sheet open={mobileFilterOpen} onOpenChange={setMobileFilterOpen}>

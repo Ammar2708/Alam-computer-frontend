@@ -63,6 +63,7 @@ function ShoppingProductTile({
               src={primaryImage}
               alt={`${product?.title}${brandLabel ? ` by ${brandLabel}` : ""} – ${categoryLabel}`}
               loading="lazy"
+              decoding="async"
               width="480"
               height="480"
               className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"

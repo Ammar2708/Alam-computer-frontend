@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchProductDetails } from "@/store/shop/product-slice";
@@ -9,6 +9,7 @@ const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").repla
 export default function ShoppingProduct() {
   const { categorySlug, productId, productSlug } = useParams();
   const dispatch = useDispatch();
+  const [selectedImage, setSelectedImage] = useState("");
   const { productDetails: product, isLoading } = useSelector((state) => state.shopProducts);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function ShoppingProduct() {
   }
 
   const images = (product.images?.length ? product.images : [product.image]).filter(Boolean);
+  const activeImage = images.includes(selectedImage) ? selectedImage : images[0];
   const price = Number(product.salePrice) > 0 ? product.salePrice : product.price;
   const canonical = `${siteUrl}/${categorySlug}/${productId}/${productSlug}`;
   const alt = `${product.title}${product.brand ? ` by ${product.brand}` : ""} – ${product.category}`;
@@ -32,8 +34,35 @@ export default function ShoppingProduct() {
       </nav>
       <div className="grid gap-10 lg:grid-cols-2">
         <section aria-label={`${product.title} images`}>
-          {images[0] ? <img src={images[0]} alt={alt} className="aspect-square w-full rounded-3xl bg-slate-50 object-contain p-8" fetchPriority="high" width="800" height="800" /> : null}
-          {images.length > 1 ? <div className="mt-3 grid grid-cols-4 gap-3">{images.slice(1).map((src, index) => <img key={src} src={src} alt={`${alt}, view ${index + 2}`} className="aspect-square rounded-xl bg-slate-50 object-contain p-2" loading="lazy" width="240" height="240" />)}</div> : null}
+          {activeImage ? <img src={activeImage} alt={alt} className="aspect-square w-full rounded-3xl bg-slate-50 object-contain p-8" fetchPriority="high" decoding="async" width="800" height="800" /> : null}
+          {images.length > 1 ? (
+            <div className="mt-3 grid grid-cols-4 gap-3">
+              {images.map((src, index) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setSelectedImage(src)}
+                  className={`overflow-hidden rounded-xl border-2 bg-slate-50 transition hover:border-red-300 ${
+                    src === activeImage
+                      ? "border-red-600 ring-2 ring-red-100"
+                      : "border-transparent"
+                  }`}
+                  aria-label={`Show ${product.title} image ${index + 1}`}
+                  aria-pressed={src === activeImage}
+                >
+                  <img
+                    src={src}
+                    alt={`${alt}, view ${index + 1}`}
+                    className="aspect-square w-full object-contain p-2"
+                    loading="lazy"
+                    decoding="async"
+                    width="240"
+                    height="240"
+                  />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </section>
         <article>
           <p className="text-sm font-bold uppercase tracking-widest text-red-600">{product.brand} · {product.category}</p>

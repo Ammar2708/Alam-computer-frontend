@@ -84,23 +84,9 @@
 
 
 import { Navigate, Route, Routes } from "react-router-dom";
-import AuthLayout from "./components/auth/layout";
-import AuthLogin from "./pages/auth/Login";
-import AuthRegister from "./pages/auth/Register";
-import AdminLayout from "./components/admin-view/dummy/Layout";
-import AdminDashboard from "./pages/admin-view/Dashboard";
-import AdminProducts from "./pages/admin-view/Product";
-import AdminFeatures from "./pages/admin-view/Features";
-import AdminOrders from "./pages/admin-view/Orders";
-import AdminPopup from "./pages/admin-view/popup";
-import AdminSlider from "./pages/admin-view/Slider";
-import AdminSettings from "./pages/admin-view/Settings";
-
 import ShoppingLayout from "./components/shoppping-view/Layout";
 import ShoppingHome from "./pages/shopping-view/Home";
 import ShoppingListing from "./pages/shopping-view/Listing";
-import ShoppingAccount from "./pages/shopping-view/Account";
-import ShoppingCheckout from "./pages/shopping-view/Checkout";
 import ShoppingProduct from "./pages/shopping-view/Product";
 import Contact from "./components/shoppping-view/Contact";
 import NotFound from "./pages/not-found/Index";
@@ -108,7 +94,7 @@ import CheckAuth from "./components/comman/CheckAuth";
 import RequireAuthDialog from "./components/comman/RequireAuthDialog";
 import ScrollToTop from "./components/comman/ScrollToTop";
 import UnauthPage from "./pages/unauth/Index";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { checkAuth } from "./store/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./components/shoppping-view/About";
@@ -119,6 +105,27 @@ import {
   SecurityPage,
   TermsPage,
 } from "./components/shoppping-view/PolicyPages";
+
+const AuthLayout = lazy(() => import("./components/auth/layout"));
+const AuthLogin = lazy(() => import("./pages/auth/Login"));
+const AuthRegister = lazy(() => import("./pages/auth/Register"));
+const AdminLayout = lazy(() => import("./components/admin-view/dummy/Layout"));
+const AdminDashboard = lazy(() => import("./pages/admin-view/Dashboard"));
+const AdminProducts = lazy(() => import("./pages/admin-view/Product"));
+const AdminFeatures = lazy(() => import("./pages/admin-view/Features"));
+const AdminOrders = lazy(() => import("./pages/admin-view/Orders"));
+const AdminPopup = lazy(() => import("./pages/admin-view/popup"));
+const AdminSlider = lazy(() => import("./pages/admin-view/Slider"));
+const AdminSettings = lazy(() => import("./pages/admin-view/Settings"));
+const ShoppingAccount = lazy(() => import("./pages/shopping-view/Account"));
+const ShoppingCheckout = lazy(() => import("./pages/shopping-view/Checkout"));
+
+const RouteLoading = () => (
+  <div className="flex min-h-[45vh] items-center justify-center" role="status">
+    <div className="h-10 w-10 animate-spin rounded-full border-4 border-red-100 border-t-red-600" />
+    <span className="sr-only">Loading page</span>
+  </div>
+);
 
 
 
@@ -139,6 +146,7 @@ function App() {
   return (
     <div className="flex flex-col overflow-x-hidden bg-white">
       <ScrollToTop />
+      <Suspense fallback={<RouteLoading />}>
       <Routes>
         <Route path="/" element={<ShoppingLayout />}>
           <Route index element={<ShoppingHome />} />
@@ -237,6 +245,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/unauth-page" element={<UnauthPage />} />
       </Routes>
+      </Suspense>
     </div>
   );
 }

@@ -2,8 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { externalLinkProps, storeContact } from "@/config/contact";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const { availableCategories = [] } = useSelector(
+    (state) => state.shopProducts || {},
+  );
   return (
     <footer className="bg-red-600 text-white mt-10">
       
@@ -25,9 +29,9 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li><NavLink to="/shop/home" className="hover:text-gray-200">Home</NavLink></li>
             <li><NavLink to="/shop/listing" className="hover:text-gray-200">All Products</NavLink></li>
-            <li><NavLink to="/shop/listing?category=Laptop" className="hover:text-gray-200">Laptops</NavLink></li>
-            <li><NavLink to="/shop/listing?category=Lcd" className="hover:text-gray-200">Monitors</NavLink></li>
-            <li><NavLink to="/shop/listing?category=Printer" className="hover:text-gray-200">Printers</NavLink></li>
+            {availableCategories.includes("laptop") && <li><NavLink to="/shop/listing?category=Laptop" className="hover:text-gray-200">Laptops</NavLink></li>}
+            {availableCategories.includes("lcd") && <li><NavLink to="/shop/listing?category=Lcd" className="hover:text-gray-200">Monitors</NavLink></li>}
+            {availableCategories.includes("printer") && <li><NavLink to="/shop/listing?category=Printer" className="hover:text-gray-200">Printers</NavLink></li>}
           </ul>
         </div>
 

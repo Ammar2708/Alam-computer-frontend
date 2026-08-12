@@ -14,13 +14,10 @@ import {
 } from "lucide-react";
 import {
   fetchAllFilteredProducts,
-  fetchProductDetails,
-  resetProductDetails,
 } from "@/store/shop/product-slice";
 import { getApiUrl } from "@/config/api";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ShoppingProductTile from "@/components/shoppping-view/ProductTile";
-import ProductDetailsDialog from "@/components/shoppping-view/productDetails";
 import PopupModal from "@/components/comman/PopupModel";
 import { getCartOwnerId } from "@/utils/cartOwner";
 import PageSeo from "@/components/seo/PageSeo";
@@ -111,7 +108,6 @@ const Home = () => {
     },
   };
 
-  const [open, setOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [heroSlides, setHeroSlides] = useState([]);
@@ -120,7 +116,7 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupCartLoading, setPopupCartLoading] = useState(false);
 
-  const { productList = [], productDetails = null, isLoading } = useSelector(
+  const { productList = [], isLoading } = useSelector(
     (state) => state.shopProducts || {}
   );
   const { user = null } = useSelector((state) => state.auth || {});
@@ -136,6 +132,16 @@ const Home = () => {
         )
       ).filter(Boolean),
     [productList]
+  );
+  const availableCategoryCards = useMemo(
+    () =>
+      featuredCategoryCards.filter(({ category }) =>
+        productList.some(
+          (product) =>
+            product?.category?.trim().toLowerCase() === category.toLowerCase(),
+        ),
+      ),
+    [productList],
   );
 
   useEffect(() => {
@@ -158,20 +164,6 @@ const Home = () => {
 
     fetchSliders();
   }, []);
-
-  useEffect(() => {
-    if (productDetails) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [productDetails]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetProductDetails());
-    };
-  }, [dispatch]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
@@ -261,8 +253,7 @@ const Home = () => {
       source === "popup"
         ? popupProduct ||
           productList?.find((product) => product._id === productId)
-        : productList?.find((product) => product._id === productId) ||
-          productDetails;
+        : productList?.find((product) => product._id === productId);
 
     if (!currentProduct && source !== "popup") {
       toast.error("Product not found");
@@ -328,16 +319,6 @@ const Home = () => {
     } finally {
       setPopupCartLoading(false);
     }
-  };
-
-  const handleGetProductDetails = (productId) => {
-    if (!productId) return;
-    dispatch(fetchProductDetails(productId));
-  };
-
-  const handleCloseDialog = () => {
-    setOpen(false);
-    dispatch(resetProductDetails());
   };
 
   const handleAddToCart = (currentProductId) => {
@@ -489,6 +470,11 @@ const Home = () => {
                             <img
                               src={slide.image}
                               alt={slide.title}
+                              loading={index === currentSlide ? "eager" : "lazy"}
+                              fetchPriority={index === currentSlide ? "high" : "low"}
+                              decoding="async"
+                              width="860"
+                              height="490"
                               className="h-[210px] w-full rounded-[16px] object-contain md:h-[245px] md:object-cover"
                             />
                           </div>
@@ -554,25 +540,65 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="px-4 pb-3 pt-7 md:px-16 md:pt-10">
-        <div className="mx-auto grid max-w-7xl gap-5 rounded-[28px] border border-slate-200 bg-white px-6 py-7 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:grid-cols-[0.95fr_1.05fr] md:items-center md:px-10 md:py-9">
-          <div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-red-600">
-              Serving Sharjah for over 15 years
-            </p>
-            <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 md:text-5xl">
-              Alam Computer – Your Trusted Computer &amp; Printer Shop in Sharjah
-            </h1>
-          </div>
-          <div className="border-t border-slate-200 pt-5 md:border-l md:border-t-0 md:pl-10 md:pt-0">
-            <p className="text-base leading-7 text-slate-600 md:text-lg">
-              Alam Computer has been serving Sharjah and the wider UAE for over 15 years, offering computer sales, printer sales, repair services, and a wide range of spare parts. Whether you need a new laptop, a printer repaired, or hard-to-find computer components, our team in Industrial Area 3, Sharjah is ready to help — in-store or online.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide text-slate-700">
-              <span className="rounded-full bg-red-50 px-3 py-2">Sales</span>
-              <span className="rounded-full bg-red-50 px-3 py-2">Repairs</span>
-              <span className="rounded-full bg-red-50 px-3 py-2">Spare Parts</span>
+      <section className="px-4 pb-4 pt-7 md:px-16 md:pt-10">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[30px] bg-[radial-gradient(circle_at_85%_10%,rgba(239,68,68,0.34),transparent_28%),linear-gradient(135deg,#09090b_0%,#1c0a0a_56%,#3a0b0b_100%)] text-white shadow-[0_24px_70px_rgba(15,23,42,0.22)]">
+          <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full border border-white/10" />
+          <div className="absolute -left-8 -top-8 h-40 w-40 rounded-full border border-white/10" />
+
+          <div className="relative grid gap-8 px-6 py-8 md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-12 md:py-12 lg:px-16">
+            <div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/15 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-red-100 backdrop-blur">
+                <ShieldCheck className="h-4 w-4 text-red-400" />
+                Trusted in the UAE for 15+ years
+              </div>
+              <h1 className="max-w-2xl text-3xl font-black leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
+                Your local destination for tech that works.
+              </h1>
+              <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-slate-300 md:text-base">
+                Shop reliable computers, printers, and hard-to-find spare parts—with friendly advice and dependable repair support from a team you can visit locally.
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => navigate("/shop/listing")}
+                  className="rounded-xl bg-red-600 px-6 py-3.5 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_12px_28px_rgba(220,38,38,0.35)] transition hover:-translate-y-0.5 hover:bg-red-500"
+                >
+                  Shop Products
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("/shop/contact")}
+                  className="rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-black uppercase tracking-[0.12em] text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
+                >
+                  Ask Our Team
+                </button>
+              </div>
             </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm sm:col-span-2">
+                <p className="text-4xl font-black text-red-400">15+</p>
+                <p className="mt-1 text-sm font-bold text-white">Years serving homes and businesses</p>
+                <p className="mt-2 text-xs leading-5 text-slate-400">Local experience, honest guidance, and support after your purchase.</p>
+              </div>
+              <div className="group rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm transition hover:border-red-400/40 hover:bg-white/10">
+                <Zap className="h-6 w-6 text-red-400" />
+                <p className="mt-4 font-black">Sales &amp; Repairs</p>
+                <p className="mt-1 text-xs leading-5 text-slate-400">Products and practical technical help in one place.</p>
+              </div>
+              <div className="group rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm transition hover:border-red-400/40 hover:bg-white/10">
+                <Truck className="h-6 w-6 text-red-400" />
+                <p className="mt-4 font-black">Across the UAE</p>
+                <p className="mt-1 text-xs leading-5 text-slate-400">Convenient online ordering with local assistance.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 bg-black/15 px-3 py-4 text-center text-[10px] font-black uppercase tracking-[0.14em] text-slate-300 sm:text-xs">
+            <span>Computers</span>
+            <span>Printers</span>
+            <span>Spare Parts</span>
           </div>
         </div>
       </section>
@@ -583,7 +609,11 @@ const Home = () => {
             <img
               key={i}
               src={src}
-              alt="brand"
+              alt="Technology brand"
+              loading="lazy"
+              decoding="async"
+              width="180"
+              height="72"
               className="mx-auto h-7 w-full object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-14"
             />
           ))}
@@ -605,7 +635,7 @@ const Home = () => {
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-          {featuredCategoryCards.map(({ title, category, description, Icon }) => (
+          {availableCategoryCards.map(({ title, category, description, Icon }) => (
             <button
               key={category}
               type="button"
@@ -668,7 +698,6 @@ const Home = () => {
               <ShoppingProductTile
                 key={product._id}
                 product={product}
-                handleGetProductDetails={handleGetProductDetails}
                 handleAddToCart={handleAddToCart}
               />
             ))
@@ -741,14 +770,6 @@ const Home = () => {
         </div>
         </div>
       </section>
-
-      <ProductDetailsDialog
-        open={open}
-        setOpen={handleCloseDialog}
-        productDetails={productDetails}
-        handleAddToCart={handleAddToCart}
-        requiresLogin={false}
-      />
 
       {showPopup && popup && (
         <PopupModal

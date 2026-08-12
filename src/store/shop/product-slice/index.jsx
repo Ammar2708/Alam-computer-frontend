@@ -3,9 +3,27 @@ import axios from "axios";
 import { getApiUrl } from "@/config/api";
 const initialState = {
   productList: [],
+  availableCategories: [],
   isLoading: false,
   productDetails: null,
 };
+
+export const fetchAvailableProductCategories = createAsyncThunk(
+  "products/fetchAvailableCategories",
+  async () => {
+    const result = await axios.get(
+      getApiUrl("/api/shop/products/get?sortBy=price-lowtohigh"),
+    );
+
+    return [
+      ...new Set(
+        (result.data?.data || [])
+          .map((product) => product?.category?.trim().toLowerCase())
+          .filter(Boolean),
+      ),
+    ];
+  },
+);
 
 export const fetchAllFilteredProducts = createAsyncThunk(
   "products/fetchAllProducts",
@@ -60,7 +78,7 @@ const ProductSlice = createSlice({
         state.isLoading = false;
         state.productList = action.payload.data;
       })
-      .addCase(fetchAllFilteredProducts.rejected, (state, action) => {
+      .addCase(fetchAllFilteredProducts.rejected, (state) => {
         state.isLoading = false;
         state.productList = [];
       })
@@ -71,9 +89,12 @@ const ProductSlice = createSlice({
         state.isLoading = false;
         state.productDetails = action.payload.data;
       })
-      .addCase(fetchProductDetails.rejected, (state, action) => {
+      .addCase(fetchProductDetails.rejected, (state) => {
         state.isLoading = false;
         state.productDetails = null;
+      })
+      .addCase(fetchAvailableProductCategories.fulfilled, (state, action) => {
+        state.availableCategories = action.payload;
       });
   },
 });

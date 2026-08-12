@@ -3,8 +3,12 @@ import { Fragment } from "react";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
+import { useSelector } from "react-redux";
 
 function ProductFilter({ filters, handleFilter }) {
+  const { availableCategories = [] } = useSelector(
+    (state) => state.shopProducts || {},
+  );
   return (
     <div className="bg-white rounded-lg shadow-md border border-red-100 overflow-hidden">
       {/* Header with Alam Red Theme */}
@@ -24,7 +28,13 @@ function ProductFilter({ filters, handleFilter }) {
               </h3>
 
               <div className="grid gap-3 mt-4">
-                {filterOptions[keyItem].map((option) => (
+                {filterOptions[keyItem]
+                  .filter(
+                    (option) =>
+                      keyItem !== "category" ||
+                      availableCategories.includes(option.id.toLowerCase()),
+                  )
+                  .map((option) => (
                   <Label 
                     key={option.id}
                     className="flex font-semibold items-center gap-3 cursor-pointer group hover:text-red-600 transition-colors"
@@ -43,7 +53,7 @@ function ProductFilter({ filters, handleFilter }) {
                       {option.label}
                     </span>
                   </Label>
-                ))}
+                  ))}
               </div>
             </div>
             
