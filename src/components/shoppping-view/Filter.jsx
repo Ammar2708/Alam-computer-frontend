@@ -5,7 +5,7 @@ import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import { useSelector } from "react-redux";
 
-function ProductFilter({ filters, handleFilter }) {
+function ProductFilter({ filters, handleFilter, clearFilters }) {
   const { availableCategories = [] } = useSelector(
     (state) => state.shopProducts || {},
   );
@@ -16,6 +16,15 @@ function ProductFilter({ filters, handleFilter }) {
         <h2 className="text-lg font-black text-white uppercase tracking-wider text-center">
           Filter Products
         </h2>
+        {Object.values(filters || {}).some((values) => values?.length) ? (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="mt-2 w-full text-center text-xs font-bold text-red-100 underline underline-offset-4 hover:text-white"
+          >
+            Clear all filters
+          </button>
+        ) : null}
       </div>
 
       <div className="p-5 space-y-6">
@@ -32,6 +41,7 @@ function ProductFilter({ filters, handleFilter }) {
                   .filter(
                     (option) =>
                       keyItem !== "category" ||
+                      availableCategories.length === 0 ||
                       availableCategories.includes(option.id.toLowerCase()),
                   )
                   .map((option) => (

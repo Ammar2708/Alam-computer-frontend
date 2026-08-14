@@ -125,7 +125,6 @@ export const addProductFormElement = [
     { id: "Lenovo", label: "Lenovo" },
     { id: "Amercian", label: "Amercian" },
     { id: "Apple", label: "Apple" },
-    { id: "lenovo", label: "Lenovo" },
     { id: "Acer", label: "Acer" },
     { id: "Cannon", label: "Cannon" },
     { id: "Tp-link", label: "Tp-link" },
@@ -142,7 +141,7 @@ export const addProductFormElement = [
     { id: "Others", label: "Others" },
   ],
   category: [
-    ...productCategoryOptions.filter((option) => option.id !== "SSD"),
+    ...productCategoryOptions,
   ],
 };
 

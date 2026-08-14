@@ -23,7 +23,7 @@ import {
   fetchAllFilteredProducts,
 } from "@/store/shop/product-slice";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getCartOwnerId } from "@/utils/cartOwner";
 import PageSeo from "@/components/seo/PageSeo";
 import { categorySlugMap } from "@/lib/shopUrls";
@@ -112,6 +112,7 @@ function removeUnavailableCategoriesFromSearchParams(existingSearchParams) {
 
 const ShoppingListing = ({ setOpenCartSheet }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { productList = [] } = useSelector(
     (state) => state.shopProducts || {}
@@ -165,7 +166,26 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
       }
     }
 
-    setSearchParams(createSearchParamsHelper(cpyFilters, searchParams));
+    const nextParams = createSearchParamsHelper(cpyFilters, searchParams);
+
+    // A category slug represents a fixed category. Move to the general listing
+    // when the user changes sidebar filters so their selection is not overridden.
+    if (categorySlug) {
+      navigate(`/shop/listing${nextParams.toString() ? `?${nextParams}` : ""}`);
+    } else {
+      setSearchParams(nextParams);
+    }
+  };
+
+  const clearFilters = () => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("search", searchQuery);
+
+    if (categorySlug) {
+      navigate(`/shop/listing${params.toString() ? `?${params}` : ""}`);
+    } else {
+      setSearchParams(params);
+    }
   };
 
   const addProductToCartForUser = async (getCurrentProductId, loggedInUser = user) => {
@@ -275,7 +295,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
         </div>
 
         <div className="hidden rounded-xl border bg-white p-4 lg:block lg:w-[260px] lg:shrink-0">
-          <ProductFilter filters={filters} handleFilter={handleFilter} />
+          <ProductFilter filters={filters} handleFilter={handleFilter} clearFilters={clearFilters} />
         </div>
 
         <div className="min-w-0 flex-1 rounded-xl border bg-white">
@@ -404,7 +424,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
             </SheetTitle>
           </SheetHeader>
           <div className="p-4">
-            <ProductFilter filters={filters} handleFilter={handleFilter} />
+            <ProductFilter filters={filters} handleFilter={handleFilter} clearFilters={clearFilters} />
           </div>
         </SheetContent>
       </Sheet>
