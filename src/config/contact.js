@@ -1,6 +1,6 @@
 export const storeContact = {
-  phoneDisplay: "+971-5-57112599",
-  phoneHref: "tel:+971557112599",
+  phoneDisplay: "0528036944",
+  phoneHref: "tel:0528036944",
   email: "alamcomputeruae@gmail.com",
   emailHref: "mailto:alamcomputeruae@gmail.com",
   address: "Industrial Area 3, Sharjah, UAE",
