@@ -16,6 +16,24 @@ const quickPrompts = ["Find a laptop", "Show printers", "Delivery help"];
 
 const normalize = (value = "") => value.toLowerCase().trim();
 
+const productTypeRules = [
+  { category: "Laptop", terms: ["laptop", "laptops", "notebook", "notebooks"] },
+  { category: "Printer", terms: ["printer", "printers", "laserjet"] },
+  { category: "Lcd", terms: ["monitor", "monitors", "display", "displays", "lcd"] },
+  { category: "Ink", terms: ["ink", "inks", "cartridge", "cartridges"] },
+  { category: "Towner", terms: ["toner", "toners"] },
+  { category: "SSD", terms: ["ssd", "storage", "hard drive", "hard drives"] },
+  { category: "Network", terms: ["network", "networking", "router", "routers", "switch", "switches"] },
+  { category: "All In One", terms: ["all in one", "all-in-one", "aio computer", "aio pc"] },
+];
+
+const getRequestedCategory = (query) => {
+  const normalized = ` ${normalize(query).replace(/[^a-z0-9-]+/g, " ")} `;
+  return productTypeRules.find(({ terms }) =>
+    terms.some((term) => normalized.includes(` ${term} `))
+  )?.category;
+};
+
 function StoreAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -42,12 +60,15 @@ function StoreAssistant() {
   }, [messages]);
 
   const findMatchingProducts = (query) => {
+    const requestedCategory = getRequestedCategory(query);
     const words = normalize(query)
       .split(/\s+/)
       .filter((word) => word.length > 2 && !["show", "find", "need", "want", "with", "best", "some"].includes(word));
 
     return productList
       .filter((product) => {
+        if (requestedCategory && normalize(product?.category) !== normalize(requestedCategory)) return false;
+
         const searchable = normalize(
           `${product?.title || ""} ${product?.brand || ""} ${product?.category || ""} ${product?.description || ""}`
         );
