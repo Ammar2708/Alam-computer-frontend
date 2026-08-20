@@ -43,6 +43,30 @@ export default function ShoppingProduct() {
   const isOutOfStock = Number(product.totalStock) <= 0;
   const hasSalePrice = Number(product.salePrice) > 0;
 
+  const productStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: product.title,
+  image: images,
+  description: product.description || `Buy ${product.title} from Alam Computer in Sharjah.`,
+  sku: product._id,
+  brand: product.brand
+    ? {
+        "@type": "Brand",
+        name: product.brand,
+      }
+    : undefined,
+  offers: {
+    "@type": "Offer",
+    url: canonical,
+    priceCurrency: "AED",
+    price: Number(price),
+    availability: isOutOfStock
+      ? "https://schema.org/OutOfStock"
+      : "https://schema.org/InStock",
+  },
+};
+
   const handleAddToCart = async () => {
     const currentQuantity = cartItems.items?.find((item) => item.productId === product._id)?.quantity || 0;
     const availableStock = Number(product.totalStock) || 0;
@@ -67,7 +91,7 @@ export default function ShoppingProduct() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 md:py-12">
-      <PageSeo title={product.title} description={product.description || `Buy ${product.title} from Alam Computer.`} canonical={canonical} image={images[0]} type="product" />
+      <PageSeo title={product.title} description={product.description || `Shop ${product.title} at Alam Computer in Sharjah. Check product details, availability, pricing, and contact our team for local support.`} canonical={canonical} image={images[0]} type="product" structuredData={productStructuredData} />
       <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-500">
         <Link className="hover:text-red-600" to="/">Home</Link> / <Link className="hover:text-red-600" to={`/${categorySlug}`}>{product.category}</Link> / <span>{product.title}</span>
       </nav>
@@ -103,7 +127,7 @@ export default function ShoppingProduct() {
               {isOutOfStock ? "Currently unavailable" : isAdding ? "Adding to cart..." : "Add to cart"}
             </Button>
             <Button asChild variant="outline" className="mt-3 h-14 w-full rounded-2xl border-slate-300 text-base font-black text-slate-900 hover:border-red-300 hover:bg-red-50 hover:text-red-700">
-              <Link to="/contact"><Headphones className="mr-2 h-5 w-5" />Contact us about this product</Link>
+              <Link to="/shop/contact"><Headphones className="mr-2 h-5 w-5" />Contact us about this product</Link>
             </Button>
             <p className="mt-3 text-center text-xs font-medium text-slate-500">Need help choosing? Our product team is happy to assist.</p>
           </div>
