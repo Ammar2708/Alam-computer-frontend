@@ -345,7 +345,7 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <PageSeo title="Alam Computer – Computer Sales, Repair & Spare Parts in Sharjah, UAE" description="Alam Computer in Sharjah offers computer & printer sales, repair, and spare parts. Trusted locally for 15+ years. Visit us in Industrial Area 3, Sharjah, or call 0528036944." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
+      <PageSeo title="Computer Shop in Sharjah" description="Alam Computer is a trusted computer shop in Sharjah for laptops, printers, computer repairs, accessories and spare parts. Visit our Industrial Area 3 store or contact us for current stock and service." canonical={`${siteUrl}/`} image={`${siteUrl}/logo1.webp`} structuredData={storeStructuredData} />
       <section className="mt-3 px-3 sm:px-4 md:mt-4 md:px-16">
         <div className="relative overflow-hidden rounded-[24px] bg-[radial-gradient(circle_at_85%_5%,_rgba(239,68,68,0.28),_transparent_28%),linear-gradient(155deg,#270909_0%,#120606_60%,#310b0b_100%)] shadow-[0_18px_45px_rgba(15,23,42,0.22)] md:rounded-[28px] md:bg-[radial-gradient(circle_at_top_left,_rgba(239,68,68,0.22),_transparent_32%),linear-gradient(135deg,#190707,#2a0d0d_48%,#faf5f5_48.2%,#fff_100%)]">
           {heroSlides.length > 0 ? (
@@ -552,7 +552,7 @@ const Home = () => {
                 Trusted in the UAE for 15+ years
               </div>
               <h1 className="max-w-2xl text-3xl font-black leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
-                Your local destination for tech that works.
+                Computer Shop in Sharjah for Laptops, Printers & Repairs.
               </h1>
               <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-slate-300 md:text-base">
                 Shop reliable computers, printers, and hard-to-find spare parts—with friendly advice and dependable repair support from a team you can visit locally.
