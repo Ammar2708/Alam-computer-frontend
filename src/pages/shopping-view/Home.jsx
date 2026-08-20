@@ -555,7 +555,7 @@ const Home = () => {
                 Computer Shop in Sharjah for Laptops, Printers & Repairs.
               </h1>
               <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-slate-300 md:text-base">
-                Shop reliable computers, printers, and hard-to-find spare parts—with friendly advice and dependable repair support from a team you can visit locally.
+                Shop computers, laptops, printers, accessories, and spare parts from a trusted computer shop in Sharjah. Alam Computer also provides reliable computer, laptop, and printer repair support for homes and businesses.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -726,22 +726,22 @@ const Home = () => {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 max-w-2xl">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-red-600">Local sales, service &amp; support</p>
-            <p className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Everything you need, from one trusted Sharjah computer shop.</p>
+            <p className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Computers, Repairs, Printers &amp; Parts from a Trusted Sharjah Computer Shop</p>
           </div>
         <div className="grid gap-5 md:grid-cols-3">
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Computer &amp; Laptop Sales in Sharjah</h2>
-            <p className="mt-3 leading-7 text-slate-600">We stock a wide range of desktop computers, laptops, and accessories from trusted brands, suited for home, office, and business use. Our team can help you choose the right system for your budget and needs — visit our shop in Industrial Area 3, Sharjah, or contact us for current stock and pricing.</p>
+            <h2 className="text-2xl font-black text-slate-950">Computers &amp; Laptops in Sharjah</h2>
+            <p className="mt-3 leading-7 text-slate-600">Browse desktop computers, laptops, and accessories for home, office, and business use. Alam Computer serves customers across Sharjah with new and reliable tech products from trusted brands, along with practical advice to help you choose the right system for your needs and budget.</p>
           </article>
 
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair</h2>
-            <p className="mt-3 leading-7 text-slate-600">Alam Computer sells new and refurbished printers and provides fast, reliable printer repair services for homes and businesses across Sharjah. From ink and toner issues to hardware faults, our technicians diagnose and fix most printer problems on the same day.</p>
+            <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair in Sharjah</h2>
+            <p className="mt-3 leading-7 text-slate-600">Alam Computer supplies new and refurbished printers and provides printer repair support for homes and businesses in Sharjah. We help with common issues involving ink, toner, print quality, hardware faults, and general printer servicing, with practical advice on repair or replacement options.</p>
           </article>
 
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Computer Spare Parts</h2>
-            <p className="mt-3 leading-7 text-slate-600">Looking for a specific computer part? We carry a large selection of spare parts — including RAM, hard drives, SSDs, motherboards, power supplies, and cables — for most major brands and models. If we don&apos;t have it in stock, we can help source it quickly.</p>
+            <h2 className="text-2xl font-black text-slate-950">Computer Parts &amp; Accessories in Sharjah</h2>
+            <p className="mt-3 leading-7 text-slate-600">Find computer parts and accessories in Sharjah including RAM, SSDs, hard drives, motherboards, power supplies, cables, and other replacement components. Alam Computer stocks parts for a range of major brands and can help source specific items when they are not immediately available.</p>
           </article>
 
           <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#270909,#991b1b)] p-7 text-white shadow-xl md:col-span-3">
@@ -752,7 +752,7 @@ const Home = () => {
             </div>
             <div>
             <h2 className="text-2xl font-black">Why Choose Alam Computer</h2>
-            <p className="mt-3 leading-7 text-white/80">With over 15 years serving the Sharjah community, Alam Computer has built a reputation for honest pricing and reliable service — reflected in our 4.3-star rating from 77+ Google reviews. We&apos;re a local shop you can walk into, talk to, and trust.</p>
+            <p className="mt-3 leading-7 text-white/80">With more than 15 years serving customers in Sharjah, Alam Computer provides computer sales, repairs, printers, accessories, and spare parts with practical advice and local support. Customers can visit our physical shop in Industrial Area 3 for product guidance, repair enquiries, and current stock availability.</p>
             </div>
             </div>
           </article>
@@ -760,7 +760,7 @@ const Home = () => {
           <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-lg md:col-span-3">
             <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
               <div className="p-4 md:p-7">
-                <h2 className="text-2xl font-black text-slate-950">Visit Our Shop</h2>
+                <h2 className="text-2xl font-black text-slate-950">Visit Our Computer Shop in Sharjah</h2>
                 <p className="mt-3 leading-7 text-slate-600">Find us in {storeContact.address}. Call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> to check stock, ask about repairs, or get directions. Open Monday–Saturday, 09:00–21:00.</p>
                 <a href={storeContact.directionsHref} className="mt-5 inline-flex rounded-lg bg-red-600 px-5 py-3 font-bold text-white transition hover:bg-red-700" {...externalLinkProps}>Get Directions</a>
               </div>
