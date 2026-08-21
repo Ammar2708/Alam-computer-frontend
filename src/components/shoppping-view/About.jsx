@@ -2,6 +2,9 @@ import React from "react";
 import { Monitor, Cpu, ShieldCheck, Users, Award, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { externalLinkProps, storeContact } from "@/config/contact";
+import PageSeo from "@/components/seo/PageSeo";
+
+const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
 const About = () => {
   const stats = [
@@ -14,7 +17,7 @@ const About = () => {
   const features = [
     {
       title: "Genuine Parts",
-      description: "We only source 100% original hardware from authorized distributors.",
+      description: "We supply computer hardware, accessories, and replacement parts from established technology brands.",
       icon: <ShieldCheck className="w-8 h-8 text-red-600" />,
     },
     {
@@ -30,6 +33,8 @@ const About = () => {
   ];
 
   return (
+    <>
+    <PageSeo title="About Alam Computer in Sharjah" description="Learn about Alam Computer, a Sharjah computer shop serving customers with laptops, printers, computer parts, repairs, networking products, and technical support." canonical={`${siteUrl}/shop/about`} />
     <div className="bg-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-red-600 px-4 py-16 md:px-16 md:py-20">
@@ -38,12 +43,12 @@ const About = () => {
         </div>
         <div className="max-w-7xl mx-auto relative z-10 text-white">
           <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-            YOUR TRUSTED TECH <br /> PARTNER SINCE 2005
+            ABOUT ALAM COMPUTER <br /> IN SHARJAH
           </h1>
           <p className="text-lg md:text-xl text-red-100 max-w-2xl font-light">
-            Alam Computer is Sharjah's leading destination for high-performance 
-            laptops, custom PC builds, and essential networking peripherals. 
-            We bridge the gap between complex technology and your needs.
+            Alam Computer is a local computer shop in Sharjah offering laptops, printers,
+            computer parts, networking products, repairs, and technical support for
+            individuals and businesses.
           </p>
         </div>
       </section>
@@ -66,7 +71,7 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Empowering Sharjah's Digital Future
+              Serving Computer Customers Across Sharjah
             </h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
@@ -79,15 +84,10 @@ const About = () => {
                 >
                   Industrial Area 3
                 </a>
-                , Alam Computer started as 
-                a small repair shop. Today, we have grown into a major hub for 
-                individuals and businesses looking for reliable computing solutions.
+                , Alam Computer has grown from a local computer repair business into a store serving customers with computers, laptops, printers, networking products, accessories, spare parts, and technical support.
               </p>
               <p>
-                Whether you are a professional gamer looking for the latest RTX 
-                GPUs, a student needing a budget-friendly laptop, or a company 
-                setting up a server room, we have the inventory and the expertise 
-                to support you.
+                Whether you need a laptop for study or business, printer equipment for an office, replacement computer parts, or help with a technical issue, our team can help you find a practical option based on your requirements and budget.
               </p>
             </div>
             
@@ -106,7 +106,7 @@ const About = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-red-600/10 rounded-xl group-hover:bg-red-600/20 transition-all"></div>
             <div className="relative   bg-gray-200 aspect-video rounded-xl shadow-lg flex items-center justify-center overflow-hidden">
-                <img src="/logo1.webp" alt="Store" />
+                <img src="/logo1.webp" alt="Alam Computer in Sharjah" />
                <Monitor size={100} className="text-gray-400 " />
               
             </div>
@@ -117,7 +117,7 @@ const About = () => {
       {/* CTA Section */}
       <section className="bg-gray-900 py-16 text-center px-4">
         <h3 className="text-white text-2xl md:text-3xl font-bold mb-6">
-          Need a Custom Solution for your Business
+          Need Help with Computers, Printers or Business IT?
         </h3>
         <Link
           to="/shop/contact"
@@ -127,6 +127,7 @@ const About = () => {
         </Link>
       </section>
     </div>
+    </>
   );
 };
 
