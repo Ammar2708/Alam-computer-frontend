@@ -18,8 +18,8 @@ const Footer = () => {
         <div>
           <h2 className="text-2xl font-bold mb-3">ALAM COMPUTER</h2>
           <p className="text-sm text-gray-200 leading-relaxed">
-            Your trusted online computer store in UAE. We provide high-quality
-            laptops, accessories, and IT products at competitive prices.
+            Alam Computer is a computer shop in Sharjah offering laptops, printers,
+            computer accessories, spare parts, networking products, and technical support.
           </p>
         </div>
 
@@ -27,11 +27,11 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Shop</h3>
           <ul className="space-y-2 text-sm">
-            <li><NavLink to="/shop/home" className="hover:text-gray-200">Home</NavLink></li>
+            <NavLink to="/" className="hover:text-gray-200">Home</NavLink>
             <li><NavLink to="/shop/listing" className="hover:text-gray-200">All Products</NavLink></li>
-            {availableCategories.includes("laptop") && <li><NavLink to="/shop/listing?category=Laptop" className="hover:text-gray-200">Laptops</NavLink></li>}
-            {availableCategories.includes("lcd") && <li><NavLink to="/shop/listing?category=Lcd" className="hover:text-gray-200">Monitors</NavLink></li>}
-            {availableCategories.includes("printer") && <li><NavLink to="/shop/listing?category=Printer" className="hover:text-gray-200">Printers</NavLink></li>}
+            {availableCategories.includes("laptop") && (<li><NavLink to="/laptops" className="hover:text-gray-200">Laptops</NavLink></li>)}
+            {availableCategories.includes("lcd") && (<li><NavLink to="/monitors" className="hover:text-gray-200">Monitors</NavLink></li>)}
+            {availableCategories.includes("printer") && (<li><NavLink to="/printers" className="hover:text-gray-200">Printers</NavLink></li>)}
           </ul>
         </div>
 
