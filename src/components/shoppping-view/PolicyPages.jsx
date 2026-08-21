@@ -43,33 +43,41 @@ const contactDetails = [
 
 const pageIntro = {
   terms: {
-    eyebrow: "Customer terms",
-    title: "Terms & Conditions",
-    description:
-      "Clear rules for ordering, buying, delivery, warranty support, and using Alam Computer's online store.",
-    icon: FileText,
-  },
+  eyebrow: "Customer terms",
+  title: "Terms & Conditions",
+  seoTitle: "Terms & Conditions | Alam Computer",
+  canonicalPath: "/terms",
+  description:
+    "Read the terms and conditions for ordering, purchasing, delivery, warranty support, and use of the Alam Computer online store.",
+  icon: FileText,
+},
   privacy: {
-    eyebrow: "Privacy overview",
-    title: "Privacy",
-    description:
-      "A simple overview of how we handle your contact, account, order, and support information.",
-    icon: UserCheck,
-  },
+  eyebrow: "Privacy overview",
+  title: "Privacy",
+  seoTitle: "Privacy Information | Alam Computer",
+  canonicalPath: "/privacy",
+  description:
+    "Learn how Alam Computer handles customer contact details, account information, orders, support requests, and store communication.",
+  icon: UserCheck,
+},
   privacyPolicy: {
     eyebrow: "Data policy",
     title: "Privacy Policy",
+    seoTitle: "Privacy Policy | Alam Computer",
+    canonicalPath: "/privacy-policy",
     description:
-      "How Alam Computer collects, uses, stores, and protects information when you shop or contact us.",
+      "Read the Alam Computer privacy policy covering how customer information is collected, used, stored, shared, and protected.",
     icon: ShieldCheck,
-  },
+},
   security: {
-    eyebrow: "Safe shopping",
-    title: "Security",
-    description:
-      "The steps we take to protect your account, checkout activity, and communication with our store.",
-    icon: LockKeyhole,
-  },
+  eyebrow: "Safe shopping",
+  title: "Security",
+  seoTitle: "Website & Shopping Security | Alam Computer",
+  canonicalPath: "/security",
+  description:
+    "Learn about the account, checkout, communication, and website security practices used by Alam Computer.",
+  icon: LockKeyhole,
+},
   faq: {
       eyebrow: "Quick answers",
       title: "FAQs",
