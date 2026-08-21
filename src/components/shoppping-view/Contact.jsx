@@ -4,6 +4,9 @@ import { Phone, Mail, MapPin, Clock, Send, Loader2, Navigation } from "lucide-re
 import { toast } from "sonner";
 import { externalLinkProps, storeContact } from "@/config/contact";
 import { getApiUrl } from "@/config/api";
+import PageSeo from "@/components/seo/PageSeo";
+
+const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
 const initialFormData = {
   name: "",
@@ -34,7 +37,7 @@ const Contact = () => {
     {
       icon: <MapPin className="w-6 h-6 text-red-600" />,
       title: "Visit Shop",
-      details: "J&P Signal, Industrial Area 3",
+      details: "J&P Signal, Industrial Area 3, Industrial Area, Sharjah",
       subtext: "Open Google Maps directions",
       href: storeContact.directionsHref,
       external: true,
@@ -78,16 +81,14 @@ const Contact = () => {
   };
 
   return (
+    <>
+    <PageSeo title="Contact Alam Computer in Sharjah" description="Contact Alam Computer for help with computers, laptops, printers, accessories, spare parts, repairs, and product availability. Our team in Sharjah can assist with technical questions, purchases, and service enquiries." canonical={`${siteUrl}/shop/contact`} />
     <section className="bg-gray-50 px-4 py-12 md:px-16 md:py-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
-            GET IN <span className="text-red-600">TOUCH</span>
-          </h2>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4"> GET IN <span className="text-red-600">TOUCH</span> </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Have a question about a specific laptop, component, or warranty? Our
-            technical team is ready to assist you with expert advice.
-          </p>
+            Contact Alam Computer for help with computers, laptops, printers, accessories, spare parts, repairs, and product availability. Our team in Sharjah can assist with technical questions, purchases, and service enquiries. </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -218,6 +219,7 @@ const Contact = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
