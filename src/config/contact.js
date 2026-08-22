@@ -1,3 +1,8 @@
+export const externalLinkProps = {
+  target: "_blank",
+  rel: "noopener noreferrer",
+};
+
 export const storeContact = {
   phoneDisplay: "+971 55 711 2599",
   phoneHref: "tel:+971557112599",
