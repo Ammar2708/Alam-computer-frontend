@@ -51,6 +51,45 @@ const categoryLabelMap = {
   accessories: "Accessories",
 };
 
+const categorySeoMap = {
+  Laptop: {
+    title: "Laptops in Sharjah",
+    description: "Shop laptops in Sharjah at Alam Computer. Browse laptops for home, office, business, and everyday use with local support and current availability.",
+  },
+  Lcd: {
+    title: "Computer Monitors in Sharjah",
+    description: "Shop computer monitors in Sharjah at Alam Computer. Browse monitors for home, office, gaming, and business use.",
+  },
+  Printer: {
+    title: "Printers in Sharjah",
+    description: "Shop printers in Sharjah at Alam Computer. Browse new and refurbished printers for home, office, and business use with local support.",
+  },
+  Ink: {
+    title: "Printer Ink in Sharjah",
+    description: "Shop printer ink in Sharjah at Alam Computer. Find ink supplies for home and office printers with local availability and support.",
+  },
+  SSD: {
+    title: "SSD Drives in Sharjah",
+    description: "Shop SSD drives in Sharjah at Alam Computer. Browse storage upgrades for laptops and desktop computers with local support.",
+  },
+  Network: {
+    title: "Networking Products in Sharjah",
+    description: "Shop networking products in Sharjah at Alam Computer, including equipment and accessories for home and business networks.",
+  },
+  "All In One": {
+    title: "All-in-One Computers in Sharjah",
+    description: "Shop all-in-one computers in Sharjah at Alam Computer. Browse compact systems for home, office, and business use.",
+  },
+  Towner: {
+    title: "Printer Toners in Sharjah",
+    description: "Shop printer toners in Sharjah at Alam Computer. Find toner supplies for home and office printers with local stock and support.",
+  },
+  accessories: {
+    title: "Computer Accessories in Sharjah",
+    description: "Shop computer accessories in Sharjah at Alam Computer. Browse cables, peripherals, components, and everyday computer accessories.",
+  },
+};
+
 function getFiltersFromSearchParams(searchParams) {
   return filterParamKeys.reduce((acc, key) => {
     const value = searchParams.get(key);
@@ -140,6 +179,20 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
     : categoryTitle
     ? categoryTitle
     : "All Products";
+  const activeCategory = filters.category?.length === 1 ? filters.category[0] : null;
+const categorySeo = activeCategory ? categorySeoMap[activeCategory] : null;
+
+const seoTitle = categorySlug && categorySeo
+  ? categorySeo.title
+  : searchQuery
+  ? `Search Results for "${searchQuery}"`
+  : "Computer Products in Sharjah";
+
+const seoDescription = categorySlug && categorySeo
+  ? categorySeo.description
+  : "Browse computers, laptops, printers, accessories, and related products from Alam Computer in Sharjah.";
+
+const shouldNoindex = Boolean(searchQuery || (!categorySlug && searchParamsString) || (categorySlug && !categorySeo));
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const handleSort = (value) => {
     setSort(value);
@@ -255,7 +308,7 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
 
   return (
     <>
-      <PageSeo title={`${listingTitle} – Computer Shop UAE`} description={`Shop ${listingTitle.toLowerCase()} from Alam Computer. Browse specifications, prices and availability in the UAE.`} canonical={`${(import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "")}${categorySlug ? `/${categorySlug}` : "/shop/listing"}`} />
+      <PageSeo title={seoTitle} description={seoDescription} canonical={`${(import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "")}${categorySlug ? `/${categorySlug}` : "/shop/listing"}`} noindex={shouldNoindex} />
       <div className="flex min-h-screen flex-col gap-4 bg-gray-50 p-3 sm:p-4 lg:flex-row lg:gap-6">
         <div className="rounded-[28px] bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent_32%),linear-gradient(135deg,#dc2626,#991b1b)] p-4 text-white shadow-[0_18px_40px_rgba(153,27,27,0.22)] lg:hidden">
           <p className="text-[11px] font-black uppercase tracking-[0.3em] text-red-100">

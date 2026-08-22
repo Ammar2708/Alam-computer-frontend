@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /shop/checkout
+Disallow: /cart
+
+Sitemap: https://alamcomputer.com/sitemap.xml

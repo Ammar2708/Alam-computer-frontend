@@ -142,13 +142,14 @@ function ShoppingHeader({ openCartSheet, setOpenCartSheet }) {
     { to: "/", label: "HOME" },
     { to: "/shop/listing", label: "PRODUCTS" },
     { to: "/laptops", label: "LAPTOPS", category: "Laptop" },
-    { to: "/monitors", label: "MONITOR", category: "Lcd" },
-    { to: "/printers", label: "PRINTER", category: "Printer" },
+    { to: "/monitors", label: "MONITORS", category: "Lcd" },
+    { to: "/printers", label: "PRINTERS", category: "Printer" },
     { to: "/ink", label: "INK", category: "Ink" },
-    { to: "/networking", label: "NETWORK", category: "Network" },
+    { to: "/networking", label: "NETWORKING", category: "Network" },
     { to: "/all-in-one-computers", label: "ALL-IN-ONE", category: "All In One" },
     { to: "/toners", label: "TONERS", category: "Towner" },
     { to: "/shop/contact", label: "CONTACT" },
+    { to: "/shop/about", label: "ABOUT" },
   ].filter(
     (link) =>
       !link.category || availableCategories.includes(link.category.toLowerCase()),

@@ -15,6 +15,9 @@ import {
   UserCheck,
 } from "lucide-react";
 import { externalLinkProps, storeContact } from "@/config/contact";
+import PageSeo from "@/components/seo/PageSeo";
+
+const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
 
 const contactDetails = [
   {
@@ -40,40 +43,50 @@ const contactDetails = [
 
 const pageIntro = {
   terms: {
-    eyebrow: "Customer terms",
-    title: "Terms & Conditions",
-    description:
-      "Clear rules for ordering, buying, delivery, warranty support, and using Alam Computer's online store.",
-    icon: FileText,
-  },
+  eyebrow: "Customer terms",
+  title: "Terms & Conditions",
+  seoTitle: "Terms & Conditions | Alam Computer",
+  canonicalPath: "/terms",
+  description:
+    "Read the terms and conditions for ordering, purchasing, delivery, warranty support, and use of the Alam Computer online store.",
+  icon: FileText,
+},
   privacy: {
-    eyebrow: "Privacy overview",
-    title: "Privacy",
-    description:
-      "A simple overview of how we handle your contact, account, order, and support information.",
-    icon: UserCheck,
-  },
+  eyebrow: "Privacy overview",
+  title: "Privacy",
+  seoTitle: "Privacy Information | Alam Computer",
+  canonicalPath: "/privacy",
+  description:
+    "Learn how Alam Computer handles customer contact details, account information, orders, support requests, and store communication.",
+  icon: UserCheck,
+},
   privacyPolicy: {
     eyebrow: "Data policy",
     title: "Privacy Policy",
+    seoTitle: "Privacy Policy | Alam Computer",
+    canonicalPath: "/privacy-policy",
     description:
-      "How Alam Computer collects, uses, stores, and protects information when you shop or contact us.",
+      "Read the Alam Computer privacy policy covering how customer information is collected, used, stored, shared, and protected.",
     icon: ShieldCheck,
-  },
+},
   security: {
-    eyebrow: "Safe shopping",
-    title: "Security",
-    description:
-      "The steps we take to protect your account, checkout activity, and communication with our store.",
-    icon: LockKeyhole,
-  },
+  eyebrow: "Safe shopping",
+  title: "Security",
+  seoTitle: "Website & Shopping Security | Alam Computer",
+  canonicalPath: "/security",
+  description:
+    "Learn about the account, checkout, communication, and website security practices used by Alam Computer.",
+  icon: LockKeyhole,
+},
   faq: {
-    eyebrow: "Quick answers",
-    title: "FAQs",
-    description:
-      "Answers to common questions about products, delivery, warranty, payment, and support.",
-    icon: HelpCircle,
-  },
+      eyebrow: "Quick answers",
+      title: "FAQs",
+      seoTitle: "Computer Store FAQs in Sharjah",
+      canonicalPath: "/faq",
+      description:
+        "Find answers about Alam Computer products, delivery, store pickup, warranty, bulk orders, technical support, and shopping in Sharjah.",
+      icon: HelpCircle,
+    },
 };
 
 function Hero({ page }) {
@@ -171,11 +184,20 @@ function SectionList({ sections }) {
 
 function PageShell({ page, children }) {
   return (
+    <>
+      {page.canonicalPath ? (
+        <PageSeo
+          title={page.seoTitle || page.title}
+          description={page.description}
+          canonical={`${siteUrl}${page.canonicalPath}`}
+        />
+      ) : null}
     <div className="bg-gray-50">
       <Hero page={page} />
       <main className="mx-auto max-w-7xl px-4 py-14 md:px-16">{children}</main>
       <ContactBand />
     </div>
+    </>
   );
 }
 
@@ -440,6 +462,16 @@ export function FaqPage() {
       question: "How do I get technical support?",
       answer:
         "Reach out by phone, email, or visit the shop. Our team can help with product selection, setup questions, warranty guidance, and repair advice.",
+    },
+    {
+      question: "Where is Alam Computer located in Sharjah?",
+      answer:
+        "Alam Computer is located near J&P Signal in Industrial Area 3, Sharjah. Visit our contact page for directions, phone details, and store information.",
+    },
+    {
+      question: "Does Alam Computer provide computer and printer repair support?",
+      answer:
+        "Yes. Contact our team for computer, laptop, and printer repair enquiries, troubleshooting, and service availability in Sharjah.",
     },
   ];
 

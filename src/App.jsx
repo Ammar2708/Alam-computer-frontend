@@ -225,14 +225,53 @@ function App() {
         <Route element={<ShoppingLayout />}>
           <Route path=":categorySlug/:productId/:productSlug" element={<ShoppingProduct />} />
           <Route path=":categorySlug" element={<ShoppingListing />} />
-          <Route path="Laptop" element={<Navigate to="/shop/listing?category=Laptop" replace />} />
-          <Route path="Monitor" element={<Navigate to="/shop/listing?category=Lcd" replace />} />
-          <Route path="Printer" element={<Navigate to="/shop/listing?category=Printer" replace />} />
-          <Route path="Ink" element={<Navigate to="/shop/listing?category=Ink" replace />} />
-          <Route path="SSD" element={<Navigate to="/shop/listing?category=SSD" replace />} />
-          <Route path="Network" element={<Navigate to="/shop/listing?category=Network" replace />} />
-          <Route path="All" element={<Navigate to="/shop/listing?category=All%20In%20One" replace />} />
-          <Route path="Towner" element={<Navigate to="/shop/listing?category=Towner" replace />} />
+          <Route
+  path="Laptop"
+  caseSensitive
+  element={<Navigate to="/laptops" replace />}
+/>
+
+<Route
+  path="Monitor"
+  caseSensitive
+  element={<Navigate to="/monitors" replace />}
+/>
+
+<Route
+  path="Printer"
+  caseSensitive
+  element={<Navigate to="/printers" replace />}
+/>
+
+<Route
+  path="Ink"
+  caseSensitive
+  element={<Navigate to="/ink" replace />}
+/>
+
+<Route
+  path="SSD"
+  caseSensitive
+  element={<Navigate to="/solid-state-drives" replace />}
+/>
+
+<Route
+  path="Network"
+  caseSensitive
+  element={<Navigate to="/networking" replace />}
+/>
+
+<Route
+  path="All"
+  caseSensitive
+  element={<Navigate to="/all-in-one-computers" replace />}
+/>
+
+<Route
+  path="Towner"
+  caseSensitive
+  element={<Navigate to="/toners" replace />}
+/>
           <Route path="faq" element={<FaqPage />} />
           <Route path="faqs" element={<Navigate to="/faq" replace />} />
           <Route path="terms" element={<TermsPage />} />
