@@ -70,15 +70,15 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "ComputerStore",
     name: "Alam Computer",
-    alternateName: "Intidhar Alam Computer",
     image: `${siteUrl}/logo1.webp`,
     url: siteUrl,
-    telephone: "0528036944",
+    telephone: "+971557112599",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Industrial Area 3",
+      streetAddress: "J&P Signal, Industrial Area 3",
       addressLocality: "Sharjah",
+      addressRegion: "Sharjah",
       addressCountry: "AE",
     },
     geo: {
@@ -94,11 +94,11 @@ const Home = () => {
           "Tuesday",
           "Wednesday",
           "Thursday",
-          "Friday",
           "Saturday",
+          "Sunday",
         ],
-        opens: "09:00",
-        closes: "21:00",
+        opens: "10:00",
+        closes: "22:00",
       },
     ],
     aggregateRating: {
@@ -761,7 +761,7 @@ const Home = () => {
             <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
               <div className="p-4 md:p-7">
                 <h2 className="text-2xl font-black text-slate-950">Visit Our Computer Shop in Sharjah</h2>
-                <p className="mt-3 leading-7 text-slate-600">Find us in {storeContact.address}. Call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> to check stock, ask about repairs, or get directions. Open Monday–Saturday, 09:00–21:00.</p>
+                <p className="mt-3 leading-7 text-slate-600">Find us in {storeContact.address}. Call <a className="font-bold text-red-600 hover:underline" href={storeContact.phoneHref}>{storeContact.phoneDisplay}</a> to check stock, ask about repairs, or get directions. Open Saturday-Thursday, 10:00–22:00.</p>
                 <a href={storeContact.directionsHref} className="mt-5 inline-flex rounded-lg bg-red-600 px-5 py-3 font-bold text-white transition hover:bg-red-700" {...externalLinkProps}>Get Directions</a>
               </div>
               <iframe title="Alam Computer shop in Industrial Area 3, Sharjah" src={storeContact.mapEmbedUrl} width="100%" height="320" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="min-h-[280px] rounded-xl" />
