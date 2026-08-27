@@ -22,6 +22,7 @@ import PopupModal from "@/components/comman/PopupModel";
 import { getCartOwnerId } from "@/utils/cartOwner";
 import PageSeo from "@/components/seo/PageSeo";
 import { externalLinkProps, storeContact } from "@/config/contact";
+import { setPublicSliders } from "@/store/slider/sliderSlice";
 
 const DISMISSED_POPUP_ID_KEY = "homepage-dismissed-popup-id";
 const FEATURED_PRODUCT_CATEGORIES = ["Laptop", "Printer", "All In One", "Ink"];
@@ -61,6 +62,22 @@ const featuredCategoryCards = [
 
 const HERO_SLIDE_DELAY = 6500;
 const HERO_SLIDE_TRANSITION_MS = 1100;
+
+const optimizeCloudinaryImage = (url, width = 700) => {
+  if (
+    !url ||
+    typeof url !== "string" ||
+    !url.includes("res.cloudinary.com") ||
+    !url.includes("/upload/")
+  ) {
+    return url;
+  }
+
+  return url.replace(
+    "/upload/",
+    `/upload/f_auto,q_auto:good,c_limit,w_${width}/`
+  );
+};
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -110,7 +127,6 @@ const Home = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const [heroSlides, setHeroSlides] = useState([]);
 
   const [popup, setPopup] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -118,6 +134,9 @@ const Home = () => {
 
   const { productList = [], isLoading } = useSelector(
     (state) => state.shopProducts || {}
+  );
+  const heroSlides = useSelector(
+  (state) => state.slider?.sliderList || []
   );
   const { user = null } = useSelector((state) => state.auth || {});
   const { cartItems = { items: [] } } = useSelector(
@@ -149,21 +168,27 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    let isMounted = true;
+  
     const fetchSliders = async () => {
       try {
         const res = await fetch(getApiUrl("/api/slider"));
         const data = await res.json();
-
-        if (data?.success) {
-          setHeroSlides(data.data || []);
+  
+        if (isMounted && data?.success) {
+          dispatch(setPublicSliders(data.data || []));
         }
       } catch (error) {
         console.log("Slider fetch error:", error);
       }
     };
-
+  
     fetchSliders();
-  }, []);
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
@@ -468,15 +493,21 @@ const Home = () => {
                         <div className="overflow-hidden rounded-[24px] border border-red-100 bg-white p-3 shadow-[0_20px_30px_rgba(239,68,68,0.10)]">
                           <div className="rounded-[18px] bg-[linear-gradient(135deg,#fff_0%,#fff5f5_50%,#fee2e2_100%)] p-3">
                             <img
-                              src={slide.image}
-                              alt={slide.title}
-                              loading={index === currentSlide ? "eager" : "lazy"}
-                              fetchPriority={index === currentSlide ? "high" : "low"}
-                              decoding="async"
-                              width="860"
-                              height="490"
-                              className="h-[210px] w-full rounded-[16px] object-contain md:h-[245px] md:object-cover"
-                            />
+                                src={optimizeCloudinaryImage(slide.image, 700)}
+                                srcSet={
+                                  slide.image?.includes("res.cloudinary.com")
+                                    ? `${optimizeCloudinaryImage(slide.image, 520)} 520w, ${optimizeCloudinaryImage(slide.image, 700)} 700w, ${optimizeCloudinaryImage(slide.image, 900)} 900w`
+                                    : undefined
+                                }
+                                sizes="(max-width: 768px) calc(100vw - 48px), 430px"
+                                alt={slide.title}
+                                loading={index === 0 ? "eager" : "lazy"}
+                                fetchPriority={index === 0 ? "high" : "low"}
+                                decoding={index === 0 ? "sync" : "async"}
+                                width="860"
+                                height="490"
+                                className="h-[210px] w-full rounded-[16px] object-contain md:h-[245px] md:object-cover"
+                              />
                           </div>
                         </div>
 
