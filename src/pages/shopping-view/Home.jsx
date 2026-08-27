@@ -168,29 +168,27 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-  if (heroSlides.length > 0) return;
-
-  let isMounted = true;
-
-  const fetchSliders = async () => {
-    try {
-      const res = await fetch(getApiUrl("/api/slider"));
-      const data = await res.json();
-
-      if (isMounted && data?.success) {
-        dispatch(setPublicSliders(data.data || []));
+    let isMounted = true;
+  
+    const fetchSliders = async () => {
+      try {
+        const res = await fetch(getApiUrl("/api/slider"));
+        const data = await res.json();
+  
+        if (isMounted && data?.success) {
+          dispatch(setPublicSliders(data.data || []));
+        }
+      } catch (error) {
+        console.log("Slider fetch error:", error);
       }
-    } catch (error) {
-      console.log("Slider fetch error:", error);
-    }
-  };
-
-  fetchSliders();
-
-  return () => {
-    isMounted = false;
-  };
-}, [dispatch, heroSlides.length]);
+    };
+  
+    fetchSliders();
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
