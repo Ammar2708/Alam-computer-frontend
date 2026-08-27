@@ -4,7 +4,7 @@ import { getApiUrl } from "@/config/api";
 
 const BASE_URL = getApiUrl("/api/slider");
 
-// 🔹 Get all sliders (admin)
+// Get all sliders (admin)
 export const fetchAllSliders = createAsyncThunk(
   "slider/fetchAll",
   async (_, { rejectWithValue }) => {
@@ -12,12 +12,14 @@ export const fetchAllSliders = createAsyncThunk(
       const res = await axios.get(`${BASE_URL}/admin`);
       return res.data.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Error fetching sliders");
+      return rejectWithValue(
+        error.response?.data || "Error fetching sliders"
+      );
     }
   }
 );
 
-// 🔹 Create slider
+// Create slider
 export const createSlider = createAsyncThunk(
   "slider/create",
   async (formData, { rejectWithValue }) => {
@@ -25,12 +27,14 @@ export const createSlider = createAsyncThunk(
       const res = await axios.post(`${BASE_URL}/admin`, formData);
       return res.data.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Error creating slider");
+      return rejectWithValue(
+        error.response?.data || "Error creating slider"
+      );
     }
   }
 );
 
-// 🔹 Update slider
+// Update slider
 export const updateSlider = createAsyncThunk(
   "slider/update",
   async ({ id, formData }, { rejectWithValue }) => {
@@ -38,12 +42,14 @@ export const updateSlider = createAsyncThunk(
       const res = await axios.put(`${BASE_URL}/admin/${id}`, formData);
       return res.data.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Error updating slider");
+      return rejectWithValue(
+        error.response?.data || "Error updating slider"
+      );
     }
   }
 );
 
-// 🔹 Delete slider
+// Delete slider
 export const deleteSlider = createAsyncThunk(
   "slider/delete",
   async (id, { rejectWithValue }) => {
@@ -51,25 +57,36 @@ export const deleteSlider = createAsyncThunk(
       await axios.delete(`${BASE_URL}/admin/${id}`);
       return id;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Error deleting slider");
+      return rejectWithValue(
+        error.response?.data || "Error deleting slider"
+      );
     }
   }
 );
 
 const sliderSlice = createSlice({
   name: "slider",
+
   initialState: {
     sliderList: [],
     isLoading: false,
     error: null,
   },
-  reducers: {},
+
+  reducers: {
+    setPublicSliders: (state, action) => {
+      state.sliderList = Array.isArray(action.payload)
+        ? action.payload
+        : [];
+    },
+  },
+
   extraReducers: (builder) => {
     builder
-
-      // 🔹 Fetch all
+      // Fetch all
       .addCase(fetchAllSliders.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchAllSliders.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -80,22 +97,23 @@ const sliderSlice = createSlice({
         state.error = action.payload;
       })
 
-      // 🔹 Create
+      // Create
       .addCase(createSlider.fulfilled, (state, action) => {
         state.sliderList.unshift(action.payload);
       })
 
-      // 🔹 Update
+      // Update
       .addCase(updateSlider.fulfilled, (state, action) => {
         const index = state.sliderList.findIndex(
           (item) => item._id === action.payload._id
         );
+
         if (index !== -1) {
           state.sliderList[index] = action.payload;
         }
       })
 
-      // 🔹 Delete
+      // Delete
       .addCase(deleteSlider.fulfilled, (state, action) => {
         state.sliderList = state.sliderList.filter(
           (item) => item._id !== action.payload
@@ -103,5 +121,7 @@ const sliderSlice = createSlice({
       });
   },
 });
+
+export const { setPublicSliders } = sliderSlice.actions;
 
 export default sliderSlice.reducer;
