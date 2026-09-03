@@ -4,8 +4,8 @@ export const externalLinkProps = {
 };
 
 export const storeContact = {
-  phoneDisplay: "+971 55 711 2599",
-  phoneHref: "tel:+971557112599",
+  phoneDisplay: "+971 52 803 6944",
+  phoneHref: "tel:+971528036944",
   email: "alamcomputeruae@gmail.com",
   emailHref: "mailto:alamcomputeruae@gmail.com",
 

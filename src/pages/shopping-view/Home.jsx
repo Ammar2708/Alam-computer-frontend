@@ -89,7 +89,7 @@ const Home = () => {
     name: "Alam Computer",
     image: `${siteUrl}/logo1.webp`,
     url: siteUrl,
-    telephone: "+971557112599",
+    telephone: "+971 52 803 6944",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",

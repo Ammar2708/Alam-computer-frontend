@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { loginUser } from "../../store/auth-slice";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { mergeGuestCart } from "@/store/shop/cart-slice";
+import { getGuestCartId } from "@/utils/cartOwner";
 
 const initialState = {
   email: "",
@@ -15,6 +17,7 @@ function AuthLogin() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   function handleChange(e) {
@@ -24,17 +27,26 @@ function AuthLogin() {
     });
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
 
-    dispatch(loginUser(formData)).then((action) => {
-      if (action.meta.requestStatus === "fulfilled") {
-        toast.success("Login Success");
-        navigate("/admin/dashboard");
-      } else {
-        toast.error("Login Failed");
+    const action = await dispatch(loginUser(formData));
+    if (action.meta.requestStatus === "fulfilled") {
+      const loggedInUser = action.payload?.user;
+      if (loggedInUser?.role !== "admin") {
+        await dispatch(mergeGuestCart(getGuestCartId()));
       }
-    });
+      toast.success("Login Success");
+      const requestedPath = location.state?.from?.pathname;
+      navigate(
+        loggedInUser?.role === "admin"
+          ? "/admin/dashboard"
+          : requestedPath || "/shop/home",
+        { replace: true }
+      );
+    } else {
+      toast.error(action.payload?.message || "Login Failed");
+    }
   }
 
   return (
