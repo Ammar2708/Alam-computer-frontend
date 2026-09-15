@@ -83,7 +83,13 @@
 
 
 
-import { Navigate, Route, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import ShoppingLayout from "./components/shoppping-view/Layout";
 import ShoppingHome from "./pages/shopping-view/Home";
 import ShoppingListing from "./pages/shopping-view/Listing";
@@ -127,7 +133,24 @@ const RouteLoading = () => (
   </div>
 );
 
+function NormalizeTrailingSlash() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const { pathname, search, hash } = location;
+
+    if (pathname.length > 1 && pathname.endsWith("/")) {
+      const cleanPath = pathname.replace(/\/+$/, "");
+
+      navigate(`${cleanPath}${search}${hash}`, {
+        replace: true,
+      });
+    }
+  }, [location, navigate]);
+
+  return null;
+}
 
 function App() {
   // const isAuthenticated = false;
@@ -145,6 +168,7 @@ function App() {
 
   return (
     <div className="flex flex-col overflow-x-hidden bg-white">
+      <NormalizeTrailingSlash />             
       <ScrollToTop />
       <Suspense fallback={<RouteLoading />}>
       <Routes>
