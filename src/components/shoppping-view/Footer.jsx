@@ -41,6 +41,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li><NavLink to="/shop/about" className="hover:text-gray-200">About Us</NavLink></li>
             <li><NavLink to="/shop/contact" className="hover:text-gray-200">Contact</NavLink></li>
+            <li><NavLink to="/printer-repair-sharjah" className="transition hover:text-red-600">Printer Repair Sharjah</NavLink></li>
             <li><NavLink to="/faq" className="hover:text-gray-200">FAQs</NavLink></li>
             <li><NavLink to="/privacy-policy" className="hover:text-gray-200">Privacy Policy</NavLink></li>
             <li><NavLink to="/shop/checkout" className="hover:text-gray-200">Cart</NavLink></li>

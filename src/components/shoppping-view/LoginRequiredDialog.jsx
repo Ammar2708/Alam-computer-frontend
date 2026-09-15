@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginUser } from "@/store/auth-slice";
+import { mergeGuestCart } from "@/store/shop/cart-slice";
+import { getGuestCartId } from "@/utils/cartOwner";
 
 const initialState = {
   email: "",
@@ -53,6 +55,7 @@ function LoginRequiredDialog({
       const loggedInUser = payload?.user;
 
       if (action.meta.requestStatus === "fulfilled" && payload?.success !== false) {
+        await dispatch(mergeGuestCart(getGuestCartId()));
         toast.success("Login successful");
         setFormData(initialState);
         onLoginSuccess?.(loggedInUser);

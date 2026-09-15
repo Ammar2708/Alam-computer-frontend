@@ -43,6 +43,18 @@ export const fetchCartItems = createAsyncThunk(
   }
 );
 
+export const mergeGuestCart = createAsyncThunk(
+  "cart/mergeGuestCart",
+  async (guestCartId) => {
+    const response = await axios.post(
+      `${BASE_URL}/merge`,
+      { guestCartId },
+      { withCredentials: true }
+    );
+    return response.data;
+  }
+);
+
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
   async ({ userId, productId }) => {
@@ -93,6 +105,16 @@ const shoppingCartSlice = createSlice({
       .addCase(fetchCartItems.rejected, (state) => {
         state.isLoading = false;
         state.cartItems = { items: [] };
+      })
+      .addCase(mergeGuestCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(mergeGuestCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.cartItems = normalizeCartData(action.payload?.data);
+      })
+      .addCase(mergeGuestCart.rejected, (state) => {
+        state.isLoading = false;
       })
       // UPDATE
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
