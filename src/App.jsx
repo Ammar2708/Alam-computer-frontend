@@ -104,6 +104,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { checkAuth } from "./store/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./components/shoppping-view/About";
+import PrinterRepairSharjah from "./pages/shopping-view/PrinterRepairSharjah";
 import {
   FaqPage,
   PrivacyPage,
@@ -247,6 +248,7 @@ function App() {
         </Route>
         <Route path="/cart" element={<Navigate to="/shop/checkout" replace />} />
         <Route element={<ShoppingLayout />}>
+         <Route path="printer-repair-sharjah" element={<PrinterRepairSharjah />} />
           <Route path=":categorySlug/:productId/:productSlug" element={<ShoppingProduct />} />
           <Route path=":categorySlug" element={<ShoppingListing />} />
           <Route
