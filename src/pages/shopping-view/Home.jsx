@@ -761,26 +761,50 @@ const Home = () => {
           </div>
         <div className="grid gap-5 md:grid-cols-3">
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Computers &amp; Laptops in Sharjah</h2>
-            <p className="mt-3 leading-7 text-slate-600">Browse desktop computers, laptops, and accessories for home, office, and business use. Alam Computer serves customers across Sharjah with new and reliable tech products from trusted brands, along with practical advice to help you choose the right system for your needs and budget.</p>
-          </article>
-          <Link
-              to="/printer-repair-sharjah"
-              className="mt-5 inline-flex font-black text-red-600 hover:underline"
-            >
-              Learn more about printer repair in Sharjah
-            </Link>
-
-          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair in Sharjah</h2>
-            <p className="mt-3 leading-7 text-slate-600">Alam Computer supplies new and refurbished printers and provides printer repair support for homes and businesses in Sharjah. We help with common issues involving ink, toner, print quality, hardware faults, and general printer servicing, with practical advice on repair or replacement options.</p>
-          </article>
-
-          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
-            <h2 className="text-2xl font-black text-slate-950">Computer Parts &amp; Accessories in Sharjah</h2>
-            <p className="mt-3 leading-7 text-slate-600">Find computer parts and accessories in Sharjah including RAM, SSDs, hard drives, motherboards, power supplies, cables, and other replacement components. Alam Computer stocks parts for a range of major brands and can help source specific items when they are not immediately available.</p>
-          </article>
-
+              <h2 className="text-2xl font-black text-slate-950">
+                Computers &amp; Laptops in Sharjah
+              </h2>
+            
+              <p className="mt-3 leading-7 text-slate-600">
+                Browse desktop computers, laptops, and accessories for home, office, and
+                business use. Alam Computer serves customers across Sharjah with new and
+                reliable tech products from trusted brands, along with practical advice to
+                help you choose the right system for your needs and budget.
+              </p>
+            </article>
+            
+            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
+              <h2 className="text-2xl font-black text-slate-950">
+                Printer Sales &amp; Repair in Sharjah
+              </h2>
+            
+              <p className="mt-3 leading-7 text-slate-600">
+                Alam Computer supplies new and refurbished printers and provides printer
+                repair support for homes and businesses in Sharjah. We help with common
+                issues involving ink, toner, print quality, hardware faults, and general
+                printer servicing, with practical advice on repair or replacement options.
+              </p>
+            
+              <Link
+                to="/printer-repair-sharjah"
+                className="mt-5 inline-flex font-black text-red-600 transition hover:text-red-700 hover:underline"
+              >
+                Learn more about printer repair in Sharjah
+              </Link>
+            </article>
+            
+            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
+              <h2 className="text-2xl font-black text-slate-950">
+                Computer Parts &amp; Accessories in Sharjah
+              </h2>
+            
+              <p className="mt-3 leading-7 text-slate-600">
+                Find computer parts and accessories in Sharjah including RAM, SSDs, hard
+                drives, motherboards, power supplies, cables, and other replacement
+                components. Alam Computer stocks parts for a range of major brands and can
+                help source specific items when they are not immediately available.
+              </p>
+            </article>
           <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#270909,#991b1b)] p-7 text-white shadow-xl md:col-span-3">
             <div className="grid gap-5 md:grid-cols-[0.45fr_1fr] md:items-center">
             <div>
