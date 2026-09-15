@@ -24,6 +24,11 @@ const staticRoutes = [
   "/all-in-one-computers",
   "/toners",
   "/accessories",
+
+  // Service pages
+  "/printer-repair-sharjah",
+
+  // Business/support pages
   "/shop/about",
   "/shop/contact",
   "/faq",
