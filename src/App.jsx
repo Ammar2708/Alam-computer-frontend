@@ -248,6 +248,7 @@ function App() {
         </Route>
         <Route path="/cart" element={<Navigate to="/shop/checkout" replace />} />
         <Route element={<ShoppingLayout />}>
+         <Route path="printer-repair-sharjah" element={<PrinterRepairSharjah />} />
           <Route path=":categorySlug/:productId/:productSlug" element={<ShoppingProduct />} />
           <Route path=":categorySlug" element={<ShoppingListing />} />
           <Route
