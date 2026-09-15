@@ -104,6 +104,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { checkAuth } from "./store/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./components/shoppping-view/About";
+import PrinterRepairSharjah from "./pages/shopping-view/PrinterRepairSharjah";
 import {
   FaqPage,
   PrivacyPage,
