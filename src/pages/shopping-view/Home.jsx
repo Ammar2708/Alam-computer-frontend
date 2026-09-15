@@ -164,31 +164,37 @@ const Home = () => {
   );
 
   useEffect(() => {
+  if (productList.length === 0) {
     dispatch(fetchAllFilteredProducts({}));
-  }, [dispatch]);
+  }
+}, [dispatch, productList.length]);
 
   useEffect(() => {
-    let isMounted = true;
-  
-    const fetchSliders = async () => {
-      try {
-        const res = await fetch(getApiUrl("/api/slider"));
-        const data = await res.json();
-  
-        if (isMounted && data?.success) {
-          dispatch(setPublicSliders(data.data || []));
-        }
-      } catch (error) {
-        console.log("Slider fetch error:", error);
+  if (heroSlides.length > 0) {
+    return;
+  }
+
+  let isMounted = true;
+
+  const fetchSliders = async () => {
+    try {
+      const res = await fetch(getApiUrl("/api/slider"));
+      const data = await res.json();
+
+      if (isMounted && data?.success) {
+        dispatch(setPublicSliders(data.data || []));
       }
-    };
-  
-    fetchSliders();
-  
-    return () => {
-      isMounted = false;
-    };
-  }, [dispatch]);
+    } catch (error) {
+      console.log("Slider fetch error:", error);
+    }
+  };
+
+  fetchSliders();
+
+  return () => {
+    isMounted = false;
+  };
+}, [dispatch, heroSlides.length]);
 
   useEffect(() => {
     if (heroSlides.length <= 1) return;
