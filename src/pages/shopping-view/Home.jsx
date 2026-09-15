@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
   ChevronLeft,
@@ -764,6 +764,12 @@ const Home = () => {
             <h2 className="text-2xl font-black text-slate-950">Computers &amp; Laptops in Sharjah</h2>
             <p className="mt-3 leading-7 text-slate-600">Browse desktop computers, laptops, and accessories for home, office, and business use. Alam Computer serves customers across Sharjah with new and reliable tech products from trusted brands, along with practical advice to help you choose the right system for your needs and budget.</p>
           </article>
+          <Link
+              to="/printer-repair-sharjah"
+              className="mt-5 inline-flex font-black text-red-600 hover:underline"
+            >
+              Learn more about printer repair in Sharjah
+            </Link>
 
           <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
             <h2 className="text-2xl font-black text-slate-950">Printer Sales &amp; Repair in Sharjah</h2>
