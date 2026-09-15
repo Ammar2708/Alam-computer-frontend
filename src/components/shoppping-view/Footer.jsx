@@ -41,7 +41,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li><NavLink to="/shop/about" className="hover:text-gray-200">About Us</NavLink></li>
             <li><NavLink to="/shop/contact" className="hover:text-gray-200">Contact</NavLink></li>
-            <li><NavLink to="/printer-repair-sharjah" className="transition hover:text-red-600">Printer Repair Sharjah</NavLink></li>
+            <li><NavLink to="/printer-repair-sharjah" className="hover:text-gray-200">Printer Repair Sharjah</NavLink></li>
             <li><NavLink to="/faq" className="hover:text-gray-200">FAQs</NavLink></li>
             <li><NavLink to="/privacy-policy" className="hover:text-gray-200">Privacy Policy</NavLink></li>
             <li><NavLink to="/shop/checkout" className="hover:text-gray-200">Cart</NavLink></li>
@@ -82,7 +82,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-4 text-sm text-gray-200">
         <p>
-          Alam Computer | {storeContact.address} | {storeContact.phoneDisplay} | Open Monday–Saturday 09:00–21:00
+          Alam Computer | {storeContact.address} | {storeContact.phoneDisplay} | Open Saturday–Thursday 10:00–22:00 | Friday Closed
         </p>
 
         <div className="flex gap-4 mt-2 md:mt-0">
