@@ -615,7 +615,7 @@ const Home = () => {
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm sm:col-span-2">
-                <p className="text-4xl font-black text-red-400">15+</p>
+                <p className="text-4xl font-black text-red-400">20+</p>
                 <p className="mt-1 text-sm font-bold text-white">Years serving homes and businesses</p>
                 <p className="mt-2 text-xs leading-5 text-slate-400">Local experience, honest guidance, and support after your purchase.</p>
               </div>
