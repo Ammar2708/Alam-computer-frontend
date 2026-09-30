@@ -814,12 +814,12 @@ const Home = () => {
           <article className="overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#270909,#991b1b)] p-7 text-white shadow-xl md:col-span-3">
             <div className="grid gap-5 md:grid-cols-[0.45fr_1fr] md:items-center">
             <div>
-              <p className="text-5xl font-black text-red-300">15+</p>
+              <p className="text-5xl font-black text-red-300">20+</p>
               <p className="mt-1 text-sm font-bold uppercase tracking-[0.2em] text-white/70">Years in Sharjah</p>
             </div>
             <div>
             <h2 className="text-2xl font-black">Why Choose Alam Computer</h2>
-            <p className="mt-3 leading-7 text-white/80">With more than 15 years serving customers in Sharjah, Alam Computer provides computer sales, repairs, printers, accessories, and spare parts with practical advice and local support. Customers can visit our physical shop in Industrial Area 3 for product guidance, repair enquiries, and current stock availability.</p>
+            <p className="mt-3 leading-7 text-white/80">With more than 20 years serving customers in Sharjah, Alam Computer provides computer sales, repairs, printers, accessories, and spare parts with practical advice and local support. Customers can visit our physical shop in Industrial Area 3 for product guidance, repair enquiries, and current stock availability.</p>
             </div>
             </div>
           </article>
