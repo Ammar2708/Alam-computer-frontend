@@ -117,6 +117,7 @@ const PrinterRepairSharjah = () => {
         structuredData={structuredData}
       />
 
+      {/* Hero */}
       <section className="bg-[linear-gradient(135deg,#190707,#3a0b0b)] px-4 py-14 text-white md:px-16 md:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
@@ -157,6 +158,7 @@ const PrinterRepairSharjah = () => {
         </div>
       </section>
 
+      {/* Intro */}
       <section className="px-4 py-12 md:px-16 md:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.15fr_0.85fr]">
           <div>
@@ -202,6 +204,7 @@ const PrinterRepairSharjah = () => {
         </div>
       </section>
 
+      {/* Common Issues */}
       <section className="bg-slate-50 px-4 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
@@ -231,6 +234,7 @@ const PrinterRepairSharjah = () => {
                 className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
               >
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+
                 <p className="font-semibold leading-6 text-slate-700">
                   {item}
                 </p>
@@ -240,6 +244,7 @@ const PrinterRepairSharjah = () => {
         </div>
       </section>
 
+      {/* Brands */}
       <section className="px-4 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 md:grid-cols-2">
@@ -273,7 +278,10 @@ const PrinterRepairSharjah = () => {
                     className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
                   >
                     <ShieldCheck className="h-5 w-5 text-red-600" />
-                    <span className="font-black text-slate-900">{brand}</span>
+
+                    <span className="font-black text-slate-900">
+                      {brand}
+                    </span>
                   </div>
                 )
               )}
@@ -282,6 +290,7 @@ const PrinterRepairSharjah = () => {
         </div>
       </section>
 
+      {/* Repair or Replace */}
       <section className="bg-slate-950 px-4 py-12 text-white md:px-16 md:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 md:grid-cols-2">
@@ -326,7 +335,75 @@ const PrinterRepairSharjah = () => {
         </div>
       </section>
 
+      {/* Related Repair Services */}
       <section className="px-4 py-12 md:px-16 md:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-red-600">
+              Related Repair Services
+            </p>
+
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              More Repair Services in Sharjah
+            </h2>
+
+            <p className="mt-4 leading-7 text-slate-600">
+              Alam Computer also provides computer and laptop repair support in
+              Sharjah. Choose the service that matches your device.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <Link
+              to="/computer-repair-sharjah"
+              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-lg"
+            >
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-red-600">
+                Computer Service
+              </p>
+
+              <h3 className="mt-3 text-2xl font-black text-slate-950">
+                Computer Repair in Sharjah
+              </h3>
+
+              <p className="mt-3 leading-7 text-slate-600">
+                Get help with desktop computer hardware faults, startup
+                problems, storage, RAM, overheating, slow performance, and
+                compatible upgrades.
+              </p>
+
+              <span className="mt-5 inline-flex font-black text-red-600 group-hover:underline">
+                View Computer Repair Service
+              </span>
+            </Link>
+
+            <Link
+              to="/laptop-repair-sharjah"
+              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-red-200 hover:shadow-lg"
+            >
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-red-600">
+                Laptop Service
+              </p>
+
+              <h3 className="mt-3 text-2xl font-black text-slate-950">
+                Laptop Repair in Sharjah
+              </h3>
+
+              <p className="mt-3 leading-7 text-slate-600">
+                Get help with charging faults, screens, batteries, keyboards,
+                overheating, storage problems, and other common laptop issues.
+              </p>
+
+              <span className="mt-5 inline-flex font-black text-red-600 group-hover:underline">
+                View Laptop Repair Service
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="bg-slate-50 px-4 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-red-600">
             Frequently Asked Questions
@@ -349,7 +426,8 @@ const PrinterRepairSharjah = () => {
                   "We provide repair support for all major printer brands, including HP, Canon, Epson, Brother, Samsung, Xerox, and other commonly used brands.",
               },
               {
-                question: "Can you repair a printer that is not printing properly?",
+                question:
+                  "Can you repair a printer that is not printing properly?",
                 answer:
                   "Yes. Problems such as poor print quality, paper feeding issues, error messages, connectivity faults, and other hardware-related problems can be inspected and diagnosed.",
               },
@@ -371,13 +449,16 @@ const PrinterRepairSharjah = () => {
                   {question}
                 </h3>
 
-                <p className="mt-3 leading-7 text-slate-600">{answer}</p>
+                <p className="mt-3 leading-7 text-slate-600">
+                  {answer}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
+      {/* CTA */}
       <section className="bg-red-600 px-4 py-12 text-white md:px-16">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>

@@ -39,12 +39,53 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Support</h3>
           <ul className="space-y-2 text-sm">
-            <li><NavLink to="/shop/about" className="hover:text-gray-200">About Us</NavLink></li>
-            <li><NavLink to="/shop/contact" className="hover:text-gray-200">Contact</NavLink></li>
-            <li><NavLink to="/printer-repair-sharjah" className="hover:text-gray-200">Printer Repair Sharjah</NavLink></li>
-            <li><NavLink to="/faq" className="hover:text-gray-200">FAQs</NavLink></li>
-            <li><NavLink to="/privacy-policy" className="hover:text-gray-200">Privacy Policy</NavLink></li>
-            <li><NavLink to="/shop/checkout" className="hover:text-gray-200">Cart</NavLink></li>
+            <li>
+              <NavLink to="/shop/about" className="hover:text-gray-200">
+                About Us
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/shop/contact" className="hover:text-gray-200">
+                Contact
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/computer-repair-sharjah" className="hover:text-gray-200">
+                Computer Repair Sharjah
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/laptop-repair-sharjah" className="hover:text-gray-200">
+                Laptop Repair Sharjah
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/printer-repair-sharjah" className="hover:text-gray-200">
+                Printer Repair Sharjah
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/faq" className="hover:text-gray-200">
+                FAQs
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/privacy-policy" className="hover:text-gray-200">
+                Privacy Policy
+              </NavLink>
+            </li>
+        
+            <li>
+              <NavLink to="/shop/checkout" className="hover:text-gray-200">
+                Cart
+              </NavLink>
+            </li>
           </ul>
         </div>
 
