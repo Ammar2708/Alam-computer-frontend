@@ -586,7 +586,7 @@ const Home = () => {
             <div>
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/15 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-red-100 backdrop-blur">
                 <ShieldCheck className="h-4 w-4 text-red-400" />
-                Trusted in the UAE for 15+ years
+                Trusted in the UAE for 20+ years
               </div>
               <h1 className="max-w-2xl text-3xl font-black leading-[1.08] tracking-tight md:text-5xl lg:text-6xl">
                 Computer Shop in Sharjah for Laptops, Printers & Repairs.
@@ -615,7 +615,7 @@ const Home = () => {
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm sm:col-span-2">
-                <p className="text-4xl font-black text-red-400">15+</p>
+                <p className="text-4xl font-black text-red-400">20+</p>
                 <p className="mt-1 text-sm font-bold text-white">Years serving homes and businesses</p>
                 <p className="mt-2 text-xs leading-5 text-slate-400">Local experience, honest guidance, and support after your purchase.</p>
               </div>

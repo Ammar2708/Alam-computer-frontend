@@ -105,6 +105,8 @@ import { checkAuth } from "./store/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./components/shoppping-view/About";
 import PrinterRepairSharjah from "./pages/shopping-view/PrinterRepairSharjah";
+import ComputerRepairSharjah from "./pages/shopping-view/ComputerRepairSharjah";
+import LaptopRepairSharjah from "./pages/shopping-view/LaptopRepairSharjah";
 import {
   FaqPage,
   PrivacyPage,
@@ -249,6 +251,8 @@ function App() {
         <Route path="/cart" element={<Navigate to="/shop/checkout" replace />} />
         <Route element={<ShoppingLayout />}>
          <Route path="printer-repair-sharjah" element={<PrinterRepairSharjah />} />
+         <Route path="computer-repair-sharjah" element={<ComputerRepairSharjah />} />
+         <Route path="laptop-repair-sharjah" element={<LaptopRepairSharjah />} />
           <Route path=":categorySlug/:productId/:productSlug" element={<ShoppingProduct />} />
           <Route path=":categorySlug" element={<ShoppingListing />} />
           <Route

@@ -27,6 +27,8 @@ const staticRoutes = [
 
   // Service pages
   "/printer-repair-sharjah",
+  "/computer-repair-sharjah",
+  "/laptop-repair-sharjah",
 
   // Business/support pages
   "/shop/about",
