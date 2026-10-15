@@ -105,6 +105,8 @@ import { checkAuth } from "./store/auth-slice";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./components/shoppping-view/About";
 import PrinterRepairSharjah from "./pages/shopping-view/PrinterRepairSharjah";
+import ComputerRepairSharjah from "./pages/shopping-view/ComputerRepairSharjah";
+import LaptopRepairSharjah from "./pages/shopping-view/LaptopRepairSharjah";
 import {
   FaqPage,
   PrivacyPage,
