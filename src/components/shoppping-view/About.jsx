@@ -8,7 +8,7 @@ const siteUrl = (import.meta.env.VITE_SITE_URL || "http://localhost:3000").repla
 
 const About = () => {
   const stats = [
-    { label: "Years Experience", value: "15+", icon: <Award className="w-5 h-5" /> },
+    { label: "Years Experience", value: "20+", icon: <Award className="w-5 h-5" /> },
     { label: "Products in Stock", value: "5000+", icon: <Cpu className="w-5 h-5" /> },
     { label: "Happy Clients", value: "10k+", icon: <Users className="w-5 h-5" /> },
     { label: "Service Centers", value: "2", icon: <Monitor className="w-5 h-5" /> },
