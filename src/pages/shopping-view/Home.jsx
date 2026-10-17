@@ -901,7 +901,7 @@ const Home = () => {
           <div className="grid gap-5 md:grid-cols-[0.45fr_1fr] md:items-center">
             <div>
               <p className="text-5xl font-black text-red-300">
-                15+
+                20+
               </p>
     
               <p className="mt-1 text-sm font-bold uppercase tracking-[0.2em] text-white/70">
