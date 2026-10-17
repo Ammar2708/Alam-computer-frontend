@@ -101,6 +101,35 @@ const categorySeoMap = {
   },
 };
 
+const categoryServiceCtaMap = {
+  printers: {
+    eyebrow: "Printer Repair in Sharjah",
+    title: "Need help repairing your printer?",
+    description:
+      "Alam Computer provides printer repair and troubleshooting in Sharjah for major printer brands, including help with paper jams, print quality problems, connectivity issues, hardware faults, and general servicing.",
+    link: "/printer-repair-sharjah",
+    buttonText: "View Printer Repair Service",
+  },
+
+  laptops: {
+    eyebrow: "Laptop Repair in Sharjah",
+    title: "Having a problem with your laptop?",
+    description:
+      "Alam Computer provides laptop repair and troubleshooting in Sharjah for charging faults, batteries, screens, keyboards, overheating, storage problems, slow performance, and other common laptop issues.",
+    link: "/laptop-repair-sharjah",
+    buttonText: "View Laptop Repair Service",
+  },
+
+  "all-in-one-computers": {
+    eyebrow: "Computer Repair in Sharjah",
+    title: "Need help with your computer?",
+    description:
+      "Alam Computer provides computer repair and troubleshooting in Sharjah for startup problems, slow performance, storage faults, RAM issues, overheating, hardware problems, and compatible computer upgrades.",
+    link: "/computer-repair-sharjah",
+    buttonText: "View Computer Repair Service",
+  },
+};
+
 function getFiltersFromSearchParams(searchParams) {
   return filterParamKeys.reduce((acc, key) => {
     const value = searchParams.get(key);
@@ -233,6 +262,10 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
   const categorySeo = activeCategory
     ? categorySeoMap[activeCategory]
     : null;
+
+  const serviceCta = categorySlug
+  ? categoryServiceCtaMap[categorySlug]
+  : null;
 
   const seoTitle =
     categorySlug && categorySeo
@@ -703,43 +736,28 @@ const ShoppingListing = ({ setOpenCartSheet }) => {
             </div>
           </div>
 
-          {categorySlug === "printers" && (
+          {serviceCta && (
             <div className="mx-4 mt-4 rounded-2xl border border-red-100 bg-red-50 p-5 sm:mx-5">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-red-600">
-                    Printer Repair in
-                    Sharjah
+                    {serviceCta.eyebrow}
                   </p>
-
+          
                   <h2 className="mt-1 text-xl font-black text-slate-950">
-                    Need help repairing
-                    your printer?
+                    {serviceCta.title}
                   </h2>
-
+          
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-                    Alam Computer
-                    provides printer
-                    repair and
-                    troubleshooting
-                    support in Sharjah
-                    for all major printer
-                    brands, including
-                    help with paper jams,
-                    print quality
-                    problems,
-                    connectivity issues,
-                    hardware faults, and
-                    general servicing.
+                    {serviceCta.description}
                   </p>
                 </div>
-
+          
                 <Link
-                  to="/printer-repair-sharjah"
+                  to={serviceCta.link}
                   className="inline-flex shrink-0 items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-black text-white transition hover:bg-red-700"
                 >
-                  View Printer Repair
-                  Service
+                  {serviceCta.buttonText}
                 </Link>
               </div>
             </div>
