@@ -3,7 +3,13 @@ name: Test SEO Build
 on:
   push:
     branches:
+      - main
       - seo-optimization
+
+  pull_request:
+    branches:
+      - main
+
   workflow_dispatch:
 
 jobs:
