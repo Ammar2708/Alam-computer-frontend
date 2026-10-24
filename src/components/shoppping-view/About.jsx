@@ -106,7 +106,7 @@ const About = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-red-600/10 rounded-xl group-hover:bg-red-600/20 transition-all"></div>
             <div className="relative   bg-gray-200 aspect-video rounded-xl shadow-lg flex items-center justify-center overflow-hidden">
-                <img src="/logo1.webp" alt="Alam Computer in Sharjah" />
+                <img src="/Alam-computer.png" alt="Alam Computer in Sharjah" />
                <Monitor size={100} className="text-gray-400 " />
               
             </div>
