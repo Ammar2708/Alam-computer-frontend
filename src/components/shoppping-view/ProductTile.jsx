@@ -94,9 +94,14 @@ function ShoppingProductTile({
             </span>
           </div>
 
-          <h2 className="mb-2 min-h-[38px] line-clamp-2 text-[13px] font-black uppercase leading-[1.15] tracking-tight text-slate-900">
-            <Link to={productUrl(product)} onClick={(event) => event.stopPropagation()}>{product?.title}</Link>
-          </h2>
+          <h2 className="mb-2 min-h-[54px] line-clamp-3 text-[13px] font-black uppercase leading-[1.15] tracking-tight text-slate-900">
+          <Link
+            to={productUrl(product)}
+            onClick={(event) => event.stopPropagation()}
+          >
+            {product?.title}
+          </Link>
+        </h2>
 
           <div className="mt-auto rounded-2xl border border-slate-100 bg-slate-50 p-3">
             <div className="flex items-end justify-between gap-2">
